@@ -1,0 +1,196 @@
+[
+
+
+
+  { "id": "preorder_full_flow",              "category": "Preorder",              "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Step 1 - Tap NylaiKitchen2: Tap 'NylaiKitchen2' once then step_done. Step 2 - Tap Any duration: Tap 'Any' once then step_done. Step 3 - Tap time slot: Find first element that looks like a time HH:MM (e.g. '18:48') and tap it once then step_done. Step 4 - Tap bookAppoitment: Tap 'bookAppoitment' once then step_done. Step 5 - Tap preOrderBooking: Tap 'preOrderBooking' once then step_done. Step 6 - Add drinks items: Tap 'drinks-category', then tap every element ending in 'Inc' on screen. If 'confirmProduct' appears tap any option ending in 'Product' then tap 'confirmProduct'. Then step_done. Step 7 - Add italian items: Tap 'italian-cuisinecategory', then tap every element ending in 'Inc'. Handle variants same way. Then step_done. Step 8 - Add pasta items: Tap 'pasta-category', then tap every element ending in 'Inc'. Handle variants. Then step_done. Step 9 - Add korean items: Tap 'korean-cuisinecategory', then tap every element ending in 'Inc'. Handle variants. Then step_done. Step 10 - Open cart: Tap 'cartImage' once then step_done. Step 11 - Apply coupon: Scroll down twice, tap 'applyCoupon', then tap '0Coupon' or '25Coupon' if visible, else tap 'couponClose'. Then step_done. Step 12 - Checkout: Tap 'cartCheckout' then goal_complete." },
+
+  { "id": "preorder_add_reduce_items",       "category": "Preorder",              "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Navigate to a pre-order booking. Add items to cart from the menu screen, then reduce the quantity of each item, then add them again. Verify counts update correctly." },
+  { "id": "preorder_edit_item_from_cart",    "category": "Preorder",              "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Add an item with variants to cart in a pre-order. Then go to the cart screen, tap to edit the item, change a variant option, and verify the cart shows the updated item correctly." },
+  { "id": "preorder_coupon_cycle",           "category": "Preorder",              "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "In the cart screen of a pre-order, apply a coupon code and verify the total updates. Then remove the coupon and verify total reverts. Then apply the coupon again and verify total updates once more." },
+
+
+  { "id": "payment_host_pays_all",           "category": "Payments C-App",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete a pre-order booking, reach the checkout screen, and select the option for the host to pay for all users. Verify the full total is shown and proceed to payment confirmation." },
+  { "id": "payment_host_pays_himself",       "category": "Payments C-App",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete a pre-order booking, reach the checkout screen, and select individual payment option so the host pays only for himself. Verify only the host's items total is shown." },
+  { "id": "payment_cash",                    "category": "Payments C-App",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete a pre-order booking and reach the payment screen. Select Cash as the payment method. Verify cash payment option is selectable and the order can be confirmed with it." },
+  { "id": "payment_food_voucher",            "category": "Payments C-App",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete a pre-order booking and reach the payment screen. Select Food Voucher as the payment method. Verify the food voucher option works and order can be confirmed." },
+  { "id": "payment_epayment",                "category": "Payments C-App",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete a pre-order booking and reach the payment screen. Select E-Payment as the payment method. Verify the e-payment option is available and flows correctly to confirmation." },
+
+
+  { "id": "contact_create_from_wallet",      "category": "Contacts & Wallet",     "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Navigate to the Wallet screen in the app. Find the option to create a new contact. Fill in the contact details and save. Verify the new contact appears in the contacts list." },
+
+
+  { "id": "review_host_only",                "category": "Reviews",               "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "After completing an event, navigate to the review screen as the host. Submit a star rating and a written review. Verify the review is submitted and a confirmation is shown." },
+
+
+  { "id": "status_capp_wallet_verify",       "category": "Status Verification",   "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Navigate to the Wallet screen in the consumer app. Verify that different event statuses are displayed correctly: look for No-Show, Preorder, Cancelled, Completed, and Payment Requested status labels." },
+  { "id": "status_payment_done",             "category": "Status Verification",   "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "After completing a payment in the consumer app, navigate to the wallet or orders screen and verify the event status changes to a payment-done or completed state." },
+
+
+  { "id": "subscribe_restaurant",            "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a restaurant in the app. Open its more info or details screen. Tap the Subscribe button. Verify subscription confirmation appears and the restaurant shows as subscribed in the home page and all relevant screens." },
+  { "id": "unsubscribe_restaurant",          "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a restaurant you are subscribed to. Open its more info screen. Tap Unsubscribe. Verify the unsubscription is reflected in the home screen and that the restaurant no longer appears in targeted ads." },
+  { "id": "like_restaurant",                 "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a restaurant in the app. Tap the Like button on the restaurant. Verify the like is registered and the rating or like count updates correctly." },
+  { "id": "like_product",                    "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a product/menu item in any restaurant. Tap the Like button on the product. Verify the like is reflected correctly — the liked state should persist when navigating away and back." },
+  { "id": "dislike_restaurant",              "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a restaurant in the app. Tap the Dislike button. Verify the dislike is registered and the state updates correctly." },
+  { "id": "dislike_product",                 "category": "Subscriptions",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Find a product/menu item. Tap the Dislike button on the product. Verify the dislike is reflected correctly and persists." },
+
+
+  { "id": "unblock_from_blocked_list",       "category": "Blocked Users",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Navigate to the blocked users list in the app menu. Find a blocked user and tap the unblock option. Verify the user is removed from the blocked list." },
+  { "id": "unblock_from_contact_list",       "category": "Blocked Users",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Navigate to the contacts list in the app. Find a contact that is blocked. Tap unblock from the contact list directly. Verify the user is unblocked." },
+
+
+  { "id": "filter_top_rated",               "category": "Filters C-App",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "On the home screen, apply the Top Rated filter. Verify all displayed restaurants are sorted or filtered by top rating. Also apply the same filter to products and verify it works for products too." },
+  { "id": "filter_discount",                "category": "Filters C-App",         "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "On the home screen, apply the Discount filter. Verify restaurants with discounts are shown. Also apply the discount filter to products and verify discounted products are displayed." },
+
+
+  { "id": "pdf_individual_payment",         "category": "PDF Generation",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "Complete an event with individual payments per user. After the event is completed, navigate to the PDF or receipt section and generate the individual payment PDF. Verify the PDF is generated and contains the correct payment breakdown per user." },
+  { "id": "pdf_after_event_individual",     "category": "PDF Generation",        "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "After an event is completed, find the option to generate a PDF for the event. Generate the individual PDF. Verify the PDF opens or is saved correctly with individual user data." },
+
+
+
+
+  { "id": "event_book_basic",               "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "As host, book a new event and invite a participant. Switch to participant account and verify the invitation appears. Participant accepts the event. Switch back to host and verify participant shows as accepted." },
+  { "id": "event_book_1_guest",             "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "As host, book a new event and add 1 guest (not a registered user). Verify the guest is added to the event and the guest count is correct." },
+  { "id": "event_book_1_participant",       "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "As host, book a new event with 1 participant (registered user). Invite the participant. Switch to participant account, verify invitation received, accept it. Switch back to host and verify accepted status." },
+  { "id": "event_participant_accepts",      "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Host creates an event and invites participant. Switch to participant account, find the event invitation, and tap Accept. Switch to host and verify the participant status shows as Accepted." },
+  { "id": "event_participant_declines",     "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Host creates an event and invites participant. Switch to participant account, find the invitation, tap Decline. Switch to host and verify the participant status shows as Declined." },
+  { "id": "event_participant_and_guest",    "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "As host, book a new event with 1 participant and 1 guest. Invite the participant. Switch to participant account and accept. Switch back to host and verify both participant (accepted) and guest are shown correctly in the event." },
+  { "id": "event_2_hours_add_after_serve",  "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Book an event for 2 hours. During the event, after the serve action is triggered, add additional items from the menu. Verify the new items are added to the order correctly." },
+  { "id": "event_3_hours_order_twice",      "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Book an event for 3 hours. During the event, order from the menu two separate times (two rounds of ordering). Verify both rounds of orders are reflected correctly in the event order summary." },
+  { "id": "event_outdoor",                  "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "Book a new event and select Outdoor seating type. Verify the Outdoor option is selectable and the event is created with Outdoor type shown in the event details." },
+  { "id": "event_indoor",                   "category": "Event Booking",         "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "Book a new event and select Indoor seating type. Verify the Indoor option is selectable and the event is created with Indoor type shown in the event details." },
+  { "id": "event_multiple_users_wallet_filter", "category": "Event Booking",     "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Book an event with multiple users (host + participant). After booking, navigate to the Wallet screen and apply available filters. Verify the filter correctly narrows down events shown in the wallet." },
+  { "id": "event_add_image_verify_notification", "category": "Event Booking",    "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "As host, add an image to an event and save/update it. Switch to participant account and verify that a notification is received about the event update. Verify the notification content is correct." },
+
+
+  { "id": "ordering_modifiers_variants_spl", "category": "Ordering",             "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an active event with 4 users, add items to the order that have modifiers, variants, and special instructions. Verify each item is added correctly with the selected modifiers, chosen variants, and special instruction text preserved." },
+  { "id": "ordering_make_no_show",          "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an active event, mark one participant as No Show. Verify the participant's status updates to No Show in the event screen and their items are handled correctly (excluded from active orders or flagged)." },
+  { "id": "ordering_split_before_serve",    "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an active event with multiple users, initiate a split of the bill before items are served. Verify the split is calculated correctly among the users present." },
+  { "id": "ordering_split_after_serve",     "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an active event, wait until items are served, then initiate a bill split. Verify the post-serve split is calculated correctly and each user sees their portion." },
+  { "id": "ordering_assign_split_items",    "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After splitting the bill, try to assign split items to a different person than originally assigned. Verify the reassignment works correctly and totals update for both users." },
+  { "id": "ordering_assign_item_to_other",  "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an active event, assign an item from one user to another user. Verify the item moves from the first user's order to the second user's order and totals update correctly." },
+  { "id": "ordering_give_tip",              "category": "Ordering",              "phase": 1, "app": "consumer", "accounts": ["host"],
+    "description": "During checkout of an event or pre-order, find the tip option. Enter a tip amount (including a decimal value like 2.50). Verify the tip is added to the total and reflected in the final payment amount." },
+  { "id": "ordering_split_mixed_payment",   "category": "Ordering",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an event with 3 users + 1 no-show, initiate a split payment using mixed payment methods. Verify the split is calculated correctly excluding the no-show user and each user can pay with their chosen method." },
+
+
+  { "id": "contact_create_from_reservation","category": "Contacts & Wallet",     "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After completing a reservation with a participant, navigate to the reservation details and use the option to create a new contact from the reservation. Verify the contact is saved with correct details." },
+  { "id": "contact_add_guest_via_wallet",   "category": "Contacts & Wallet",     "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "After creating an event, go to the Wallet screen. Find the option to add a Guest through Wallet. Add the guest to an existing event. Verify the guest appears in the event details." },
+  { "id": "contact_add_participant_via_wallet","category": "Contacts & Wallet",  "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "After creating an event, go to the Wallet screen. Find the option to add a Participant through Wallet. Add the participant to an existing event. Verify the participant receives an invitation." },
+
+
+  { "id": "preorder_add_more_from_cart",    "category": "Preorder",              "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "During an active event, navigate to the cart screen. Find the option to add more items from the menu while in the cart. Add additional items and verify they are added to the existing cart correctly." },
+  { "id": "preorder_host_invitee_not",      "category": "Preorder",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Host preorders first for an event. Add items with special instructions and without special instructions. Invitee does NOT preorder. Verify the host's preorder shows correctly and the system handles the invitee having no preorder." },
+  { "id": "preorder_invitee_first_host_not","category": "Preorder",              "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Switch to participant account. Participant preorders first with different item options and special instructions. Switch back to host who does NOT preorder. Verify participant's preorder is visible and the system handles the host having no preorder." },
+  { "id": "preorder_invitee_first_host_later","category": "Preorder",            "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Switch to participant account. Participant preorders first. Switch to host account. Host preorders later. Verify both preorders are visible and combined correctly in the event summary." },
+
+
+  { "id": "review_host_and_participant",    "category": "Reviews",               "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After completing an event, as host submit a review with star rating and comment. Switch to participant account and also submit a review. Verify both reviews are submitted successfully." },
+  { "id": "review_invitee_only",            "category": "Reviews",               "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After completing an event, only the invitee (participant) submits a review. The host does not review. Verify the invitee review is accepted and the host's lack of review does not cause errors." },
+
+
+  { "id": "status_no_show",                 "category": "Status Verification",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an event, mark a user as No Show. Verify the No Show status appears correctly for that user in the wallet screen and event details from both the host and participant perspectives." },
+
+
+  { "id": "blocked_block_invited_person",   "category": "Blocked Users",         "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "As host, invite a participant to an event. Then block the invited person. Verify the blocked person appears in the blocked list. Switch to the blocked participant's account and verify the event shows as waiting or restricted status." },
+
+
+  { "id": "payment_host_pays_for_guest",    "category": "Payments C-App",        "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "In an event with a guest added, reach the checkout/payment screen. Select the option for the host to pay for the guest. Verify the guest's items are included in the host's payment total." },
+  { "id": "payment_remind_from_bapp",       "category": "Payments C-App",        "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "From the business app, send a payment reminder to a participant. Switch to the participant's consumer app account and verify the re-checkout or payment request notification appears in the consumer app." },
+  { "id": "payment_split_3_methods",        "category": "Payments-2",            "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an event with 4 users, where 1 pays for himself and another pays for all, initiate a split payment. Verify the split is calculated correctly and the payment flow works with 4 users." },
+  { "id": "payment_participant_pays_others","category": "Payments-2",            "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "In an event, have the participant (not the host) pay for all other users. Verify the large payment amount is handled correctly and all users' items are covered." },
+  { "id": "payment_guest_pays_others",      "category": "Payments-2",            "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "In an event with a guest, have the guest pay for other users. Verify the payment assignment works when a guest (non-registered user) covers others' costs." },
+
+
+  { "id": "cancel_host_invitee_accepted",   "category": "Event Cancellations",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Host creates event, invitee accepts, a guest is added. Host cancels the event for Me Only with a cancellation reason. Verify the cancellation reason is required and submitted, and the event status updates correctly." },
+  { "id": "cancel_change_host_then_add_user","category": "Event Cancellations",  "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After changing the host of an event during cancellation flow, verify that adding a new user or guest still works correctly afterward. Check the event state is consistent." },
+  { "id": "cancel_invitee_declined_guests", "category": "Event Cancellations",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Host creates event, invitee declines, 2 or 3 guests are added. Host cancels the event. Verify the cancellation works correctly when the invitee has declined and multiple guests are present." },
+  { "id": "cancel_participant_self",        "category": "Event Cancellations",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Switch to participant account. Participant cancels their participation in the event. Verify the cancellation is reflected in both the participant's and host's event view." },
+  { "id": "cancel_both_host_and_participant","category": "Event Cancellations",  "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Both the host and participant independently cancel the event. Verify that when both cancel, the event state is handled correctly without errors." },
+  { "id": "cancel_after_preorder_before_15min","category": "Event Cancellations","phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Both host and participant preorder. Host cancels the event for Me Only within 15 minutes of the event start. Verify the cancellation policy and any refund or penalty logic works correctly." },
+  { "id": "cancel_after_preorder_after_15min","category": "Event Cancellations", "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Both host and participant preorder. Host cancels the event for Me Only after 15 minutes past the event start. Verify the late cancellation policy is applied correctly." },
+  { "id": "cancel_for_all_before_15min",    "category": "Event Cancellations",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Both host and participant preorder. Host cancels the event for all users within 15 minutes. Verify all participants are notified and the event is cancelled for everyone." },
+  { "id": "cancel_for_all_after_15min",     "category": "Event Cancellations",   "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Both host and participant preorder. Host cancels for all after 15 minutes. Verify late group cancellation policy is applied and all users see the cancellation." },
+
+
+  { "id": "modify_event_type",              "category": "Modify Event",          "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "Open an existing event and tap Modify. Change the event type. After saving, tap Modify again and verify the changed event type is shown correctly in the modify screen." },
+  { "id": "modify_event_with_invitees",     "category": "Modify Event",          "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Open an existing event with participants and tap Modify. Change event details including invitees (add or remove). Save and verify all changes are reflected correctly." },
+  { "id": "modify_image_message_invite",    "category": "Modify Event",          "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "Open an event and modify its image and message. Also invite a new user during the modification. Save changes and switch to the invitee's account to verify the changes and new invitation are reflected correctly." },
+  { "id": "modify_subtract_persons",        "category": "Modify Event",          "phase": 2, "app": "consumer", "accounts": ["host"],
+    "description": "Open an event and tap Modify. Use the minus button to subtract the number of persons. Verify the person count decreases correctly and the event details update accordingly." },
+
+
+  { "id": "pdf_entire_event",               "category": "PDF Generation",        "phase": 2, "app": "consumer", "accounts": ["host", "participant"],
+    "description": "After an event with multiple users is completed, generate a PDF for the entire event (not per individual). Verify the PDF contains the complete event order summary and payment details for all users." }
+]

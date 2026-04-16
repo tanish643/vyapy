@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<commands version="24.3">
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="1. Filter Events by Status- b app" description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='orderFilterBtn' or @name='orderFilterBtn' or @label='orderFilterBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Reserved' or @name='Reserved' or @label='Reserved'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@text='Remove filter'] | //*[@accessibilityLabel='removeStatusFilter' or @name='removeStatusFilter' or @label='removeStatusFilter' or @accessibilityIdentifier='removeStatusFilter' or @value='removeStatusFilter'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Remove filter' or @name='Remove filter' or @label='Remove filter']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="3000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='orderFilterBtn' or @name='orderFilterBtn' or @label='orderFilterBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Serve' or @name='Serve' or @label='Serve'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="5000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@text='Remove filter'] | //*[@accessibilityLabel='removeStatusFilter' or @name='removeStatusFilter' or @label='removeStatusFilter' or @accessibilityIdentifier='removeStatusFilter' or @value='removeStatusFilter'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Remove filter' or @name='Remove filter' or @label='Remove filter']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="3000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="2. Filter Events by Table- b app" description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='modifyTable' or @name='modifyTable' or @label='modifyTable']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='T3' or @name='T3' or @label='T3'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='removeTableFilter']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='modifyTable' or @name='modifyTable' or @label='modifyTable']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='T5' or @name='T5' or @label='T5'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="5000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='removeTableFilter']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="3. Status filter in events pop up of home page " description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='Home']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@XCElementType='XCUIElementTypeOther']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='orderFilterBtn' or @name='orderFilterBtn' or @label='orderFilterBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='Order']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="5000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='0 result(s) shown for « Serve »   ']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Remove filter' or @name='Remove filter' or @label='Remove filter']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="3000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="4. table filter in events pop up of home page  " description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='modifyTable' or @name='modifyTable' or @label='modifyTable']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='T10']" description="Select Element to Wait For" name="Element" pattern="" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="" type="integer"/>
+            <parameter appium="true" defaultValue="10000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='T1']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="false" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='0 result(s) shown for « T5 »    ']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='closeEventModal']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="5. Table main filter in home page and filter out Events Status filter  " description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='tableBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@XCElementType='XCUIElementTypeOther']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='orderFilterBtn' or @name='orderFilterBtn' or @label='orderFilterBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='In Progress']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="5000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="false" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@text='Remove filter'] | //*[@accessibilityLabel='removeStatusFilter' or @name='removeStatusFilter' or @label='removeStatusFilter' or @accessibilityIdentifier='removeStatusFilter' or @value='removeStatusFilter'] " description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Remove filter' or @name='Remove filter' or @label='Remove filter']" description="Select Element to Wait For" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="3000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="6. Table main filter in home page and filter out Events table filter" description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='modifyTable' or @name='modifyTable' or @label='modifyTable']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="WaitForElementPresence(Element, Timeout)" enable="true" name="WaitForElement(Zone, Element, Index, Timeout)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='T7']" description="Select Element to Wait For" name="Element" pattern="" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="" type="integer"/>
+            <parameter appium="true" defaultValue="10000" description="Waiting Timeout in MiliSec" name="Timeout" pattern="" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='T2']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='Confirm' or @name='Confirm' or @label='Confirm']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="false" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@accessibilityLabel='removeTableFilter']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='closeEventModal']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="SendKeys(Text)" enable="true" name="SendText(Text)">
+        <parameters>
+            <parameter appium="true" defaultValue="7. pickup main filter in home page" description="Text to send" name="Text" pattern="(.*)" type="string"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="FindElement and Click(Element)" enable="true" name="Click(Zone, Element, Index, ClickCount)">
+        <parameters>
+            <parameter appium="false" defaultValue="" description="Select Zone" name="Zone" pattern="(.+)" type="zone"/>
+            <parameter appium="true" defaultValue="//*[@value='pickupBtn']" description="Select Element" name="Element" pattern="(.+)" type="string"/>
+            <parameter appium="false" defaultValue="0" description="Element Order" name="Index" pattern="(\d+)" type="integer"/>
+            <parameter appium="false" defaultValue="1" description="Number of Clicks" name="Click Count" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+    <command appium="true" appiumName="Swipe(startx, starty, endx, endy, time)" enable="true" name="DragCoordinates(X1, Y1, X2, Y2, Time)">
+        <parameters>
+            <parameter appium="true" defaultValue="776" description="First point X" name="X1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1817" description="First point Y" name="Y1" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="770" description="Second point X" name="X2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="1220" description="Second point Y" name="Y2" pattern="(\d+)" type="integer"/>
+            <parameter appium="true" defaultValue="198" description="Drag time (ms)" name="Time" pattern="(\d+)" type="integer"/>
+        </parameters>
+    </command>
+</commands>

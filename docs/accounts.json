@@ -1,0 +1,4 @@
+[
+  {"email": "roopa@xorstack.com", "password": "12345", "role": "host"},
+  {"email": "noolu@xorstack.com", "password": "12345", "role": "participant"}
+]

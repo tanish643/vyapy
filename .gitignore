@@ -1,0 +1,48 @@
+# API Keys (NEVER commit)
+groq_key.txt
+gemini_key.txt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Runtime output
+scenario_history.json
+scenario_report.html
+
+# Device output directories
+Consumer/
+Business/
+Android/
+Android.zip
+
+# Screenshots
+screenshots/
+*.png
+
+# Debug XML dumps
+ui.xml
+ui1.xml
+current_ui.xml
+live_ui.xml
+window_dump.xml
+
+# macOS
+.DS_Store
+__MACOSX/
+**/__MACOSX/
+
+# Gemini
+.gemini/
+
+# Large binaries (APKs, iOS apps)
+*.apk
+vyaconsumer.app/
+
+# Claude
+.claude/
+
+# Output
+output/
+C__/
+"andrid buisness"/
