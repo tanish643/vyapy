@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vya Mobile Automation - Test Report</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      padding: 30px;
+      color: #333;
+    }
+    .card {
+      max-width: 1500px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    .header {
+      background: #1a202c;
+      color: #fff;
+      padding: 24px 32px;
+    }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header p  { font-size: 15px; opacity: .8; margin-top: 4px; }
+    .stats { display: flex; border-bottom: 2px solid #e2e8f0; }
+    .stat {
+      flex: 1; padding: 18px; text-align: center;
+      border-right: 1px solid #e2e8f0;
+    }
+    .stat:last-child { border-right: none; }
+    .stat .val { font-size: 28px; font-weight: 800; }
+    .stat .lbl { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: #f7fafc;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      border-bottom: 2px solid #e2e8f0;
+      text-align: center;
+    }
+    thead th:first-child { text-align: left; }
+    td {
+      padding: 14px 20px;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .td-name { font-weight: 500; color: #2d3748; }
+    .td-c { text-align: center; }
+    .td-bill {
+      padding: 16px 20px;
+      font-size: 15px;
+      line-height: 2.0;
+      text-align: center;
+      min-width: 500px;
+    }
+    .muted { color: #999; }
+    tr:hover td { background: #f7fafc; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>Vya Mobile Automation</h1>
+      <p>Device: Android Phone &nbsp;&middot;&nbsp; Platform: Android</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="val">6</div>
+        <div class="lbl">Total</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#27ae60">1</div>
+        <div class="lbl">Passed</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#e74c3c">5</div>
+        <div class="lbl">Failed</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#805ad5">17%</div>
+        <div class="lbl">Pass Rate</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Test Case</th>
+          <th>App</th>
+          <th>Status</th>
+          <th>Total Validation</th>
+          <th>Failed At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#ffffff"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Scenario 1, 2, 3<br>1. Adding More Items from Cart<br>2. Add and Reduce Items Cart/Menu<br>3. Edit Item from Cart</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><b>Pre-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;60.49<br><b>Post-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> actual = &euro;60.49 | displayed = &euro;60.49 | diff = &euro;0.00<br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;4.37</td><td style="padding:4px 10px">&euro;4.37<br><span style="color:#e74c3c;font-size:11px">diff -0.02</span></td><td style="padding:4px 10px">&euro;0.13</td><td style="padding:4px 10px">&euro;0.11<br><span style="color:#e74c3c;font-size:11px">diff +0.02</span></td><td style="padding:4px 10px">&euro;4.48</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;47.50</td><td style="padding:4px 10px">&euro;47.50<br><span style="color:#e74c3c;font-size:11px">diff -1.86</span></td><td style="padding:4px 10px">&euro;6.65</td><td style="padding:4px 10px">&euro;8.51<br><span style="color:#e74c3c;font-size:11px">diff +1.86</span></td><td style="padding:4px 10px">&euro;56.01</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr></table><br><b>Pre vs Post:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;60.49 vs &euro;60.49 diff = &euro;0.00</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top">VAT 3% | actual €0.13 | displayed €0.11 | difference €0.02 ; VAT 14% | actual €6.65 | displayed €8.51 | difference €1.86</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Scenario 4. Host Preorders First Invitee Skips</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><b>Pre-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;38.50<br><b>Post-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> actual = &euro;38.50 | displayed = &euro;38.50 | diff = &euro;0.00<br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;34.02</td><td style="padding:4px 10px">&euro;34.02<br><span style="color:#e74c3c;font-size:11px">diff -0.28</span></td><td style="padding:4px 10px">&euro;4.76</td><td style="padding:4px 10px">&euro;4.48<br><span style="color:#e74c3c;font-size:11px">diff +0.28</span></td><td style="padding:4px 10px">&euro;38.50</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr></table><br><b>Pre vs Post:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;38.50 vs &euro;38.50 diff = &euro;0.00</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top">VAT 14% | actual €4.76 | displayed €4.48 | difference €0.28</td></tr>
+        <tr style="background:#ffffff"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Scenario 5. Both Host and Invitee Preorder</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><b>Pre-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;533.64<br><b>Post-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> actual = &euro;533.64 | displayed = &euro;533.64 | diff = &euro;0.00<br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;40.95</td><td style="padding:4px 10px">&euro;40.95<br><span style="color:#e74c3c;font-size:11px">diff -0.11</span></td><td style="padding:4px 10px">&euro;1.23</td><td style="padding:4px 10px">&euro;1.12<br><span style="color:#e74c3c;font-size:11px">diff +0.11</span></td><td style="padding:4px 10px">&euro;42.07</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;490.31</td><td style="padding:4px 10px">&euro;490.31<br><span style="color:#e74c3c;font-size:11px">diff -67.38</span></td><td style="padding:4px 10px">&euro;68.64</td><td style="padding:4px 10px">&euro;1.26<br><span style="color:#e74c3c;font-size:11px">diff +67.38</span></td><td style="padding:4px 10px">&euro;491.57</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr></table><br><b>Pre vs Post:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;533.64 vs &euro;533.64 diff = &euro;0.00</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top">VAT 3% | actual €1.23 | displayed €1.12 | difference €0.11 ; VAT 14% | actual €68.64 | displayed €1.26 | difference €67.38</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Scenario 6. Participant Preorders First Host Adds Later</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><b>Pre-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;265.70<br><b>Post-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> actual = &euro;265.70 | displayed = &euro;265.70 | diff = &euro;0.00<br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;7.21</td><td style="padding:4px 10px">&euro;7.21<br><span style="color:#e74c3c;font-size:11px">diff -0.12</span></td><td style="padding:4px 10px">&euro;0.22</td><td style="padding:4px 10px">&euro;0.10<br><span style="color:#e74c3c;font-size:11px">diff +0.12</span></td><td style="padding:4px 10px">&euro;7.31</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;265.00</td><td style="padding:4px 10px">&euro;265.00<br><span style="color:#e74c3c;font-size:11px">diff -36.40</span></td><td style="padding:4px 10px">&euro;37.10</td><td style="padding:4px 10px">&euro;0.70<br><span style="color:#e74c3c;font-size:11px">diff +36.40</span></td><td style="padding:4px 10px">&euro;265.70</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr></table><br><b>Pre vs Post:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;265.70 vs &euro;265.70 diff = &euro;0.00</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top">VAT 3% | actual €0.22 | displayed €0.10 | difference €0.12 ; VAT 14% | actual €37.10 | displayed €0.70 | difference €36.40</td></tr>
+        <tr style="background:#ffffff"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Scenario 7. Coupon Add/Remove/Verify Total</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><b>Pre-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;130.74<br><b>Post-Payment Total:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> actual = &euro;130.74 | displayed = &euro;130.74 | diff = &euro;0.00<br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;7.21</td><td style="padding:4px 10px">&euro;7.21<br><span style="color:#e74c3c;font-size:11px">diff -0.12</span></td><td style="padding:4px 10px">&euro;0.22</td><td style="padding:4px 10px">&euro;0.10<br><span style="color:#e74c3c;font-size:11px">diff +0.12</span></td><td style="padding:4px 10px">&euro;7.31</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;123.00</td><td style="padding:4px 10px">&euro;123.00<br><span style="color:#e74c3c;font-size:11px">diff -16.80</span></td><td style="padding:4px 10px">&euro;17.22</td><td style="padding:4px 10px">&euro;0.42<br><span style="color:#e74c3c;font-size:11px">diff +16.80</span></td><td style="padding:4px 10px">&euro;123.42</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr></table><br><b>Pre vs Post:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span> &euro;130.74 vs &euro;130.74 diff = &euro;0.00</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top">VAT 3% | actual €0.22 | displayed €0.10 | difference €0.12 ; VAT 14% | actual €17.22 | displayed €0.42 | difference €16.80</td></tr>
+        <tr style="background:#f8fafc"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">Coupon Verify Total</td><td class="td-c" style="font-size:15px">Consumer</td><td class="td-c"><span style="background:#27ae60;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">PASSED</span></td><td class="td-bill"><b>Coupon Applied:</b> <span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Step</th><th style="padding:4px 10px">Value</th></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Coupon Type</td><td style="padding:4px 10px">30% OFFER</td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Cart Total (before coupon)</td><td style="padding:4px 10px">&euro;265.70</td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Discount (30% &times; &euro;265.70)</td><td style="padding:4px 10px">&euro;79.71</td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Expected Total (after coupon)</td><td style="padding:4px 10px">&euro;185.99</td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Displayed Total (after coupon)</td><td style="padding:4px 10px">&euro;185.99</td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">Difference</td><td style="padding:4px 10px">&euro;0.00 <span style="color:#27ae60;font-weight:bold">&#10003;</span></td></tr></table></td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top"><span style="color:#27ae60">-</span></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>
+</html>

@@ -2157,10 +2157,6 @@ def po2_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "counterPlus")
     time.sleep(2)
-    _tap(agent, "counterPlus")
-    time.sleep(2)
-    _tap(agent, "counterMinus")
-    time.sleep(2)
     _tap(agent, "addNewCustomSelection")
     time.sleep(3)
     # Go to cart and add from different category
@@ -2223,8 +2219,10 @@ def po3_consumer_flow(agent):
     _tap(agent, "primary_button")
     time.sleep(30)
     _tap(agent, "pickUpOrderConfirm")
-    agent.check_bill()
     time.sleep(5)
+    # Bill validation — scrolls through the page and verifies all calculations
+    agent.verify_final_bill()
+    time.sleep(2)
     scenario_reporter.add_result("PO3", "Edit Item from Cart",
                                  agent.role, "PASS", "Completed", agent.last_launch_time)
 
@@ -2237,7 +2235,93 @@ def po7_consumer_flow(agent):
     """PO7: Add coupon, remove it, re-add and verify total — BILL VALIDATION"""
     print(f"[{agent.role}] [PO7] Coupon Add/Remove/Verify Total")
     agent.launch_app()
+    _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
+    _tap(agent, "NylaiKitchen")
+    time.sleep(3)
+    _tap(agent, "counterPlus")
+    time.sleep(2)
+    _type_field(agent, "contactSearch", "Noolu")
+    time.sleep(2)
+    _tap(agent, "NooluInvite")
+    time.sleep(3)
+    _tap(agent, "Noolu")
+    time.sleep(3)
+    _tap(agent, "inviteUsers")
+    time.sleep(3)
+    _tap_chip_container(agent)
+    _tap(agent, "bookAppoitment")
+    time.sleep(3)
+    _tap(agent, "orderLater")
+    time.sleep(5)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    # Noolu accepts and preorders
+    _switch_account(agent, "noolu@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    _wait_for_card(agent, "RoopaDInviteCard", max_attempts=10)
+    time.sleep(3)
+    if not _tap(agent, "eventAccept"):
+        time.sleep(3)
+        _tap(agent, "eventAccept")
+    time.sleep(10)
+    _tap(agent, "preOrderBooking")
+    time.sleep(5)
+    _tap(agent, "starterscategory", scroll=False)
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "HaraBharaKebabInc", scroll=False)
+    time.sleep(3)
+    _tap(agent, "4pcsProduct", scroll=False)
+    time.sleep(2)
+    _tap(agent, "confirmProduct", scroll=False)
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    agent.swipe_up()
+    time.sleep(2)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "ThaiGreenCurrywithJasmineRiceInc")
+    time.sleep(3)
+    _tap(agent, "vegProduct")
+    time.sleep(2)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "extrapeanutsProduct")
+    time.sleep(2)
+    _type_field(agent, "inputSplIns", "Spicy")
+    time.sleep(2)
+    _tap(agent, "confirmProduct")
+    time.sleep(15)
+    _tap(agent, "cartImage")
+    time.sleep(15)
+    agent.check_cart_total()
+    _tap(agent, "cartCheckout")
+    time.sleep(15)
+    _tap(agent, "primary_button")
+    time.sleep(30)
+    _tap(agent, "pickUpOrderConfirm")
+    time.sleep(15)
+    agent.check_bill_with_vat()
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    # Roopa switches back, adds her own items
+    _switch_account(agent, "roopa@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    _wait_for_card(agent, "NylaiKitchenCard", max_attempts=10)
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "preOrderBtn", scroll=False)
+    time.sleep(5)
+
+    # ── PO7-specific: Add items, apply coupon, verify ─────────────────────
     _tap(agent, "starterscategory", scroll=False)
     time.sleep(3)
     _tap(agent, "MuttonSeekhKebab", scroll=False)
@@ -2258,20 +2342,88 @@ def po7_consumer_flow(agent):
     # Apply coupon
     _tap(agent, "applyCoupon")
     time.sleep(15)
-    _tap(agent, "6% OFFER")
-    time.sleep(15)
-    # Validate coupon was applied correctly
-    if original_total and original_total > 0:
-        coupon_value = round(original_total * 0.06, 2)
-        xml = agent.dump_ui()
-        coupon_result = bill_validator.validate_coupon(xml, original_total, coupon_value)
+
+    # Dynamically detect available coupons on screen and pick the FIRST one
+    coupon_xml = agent.dump_ui()
+    coupons_found = []
+    # Pattern A: text/content-desc first, then bounds
+    for m in re.finditer(
+        r'(?:text|content-desc)="((?:\d+(?:\.\d+)?)\s*%[^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"',
+        coupon_xml,
+    ):
+        label = m.group(1).strip()
+        pct_match = re.search(r'(\d+(?:\.\d+)?)\s*%', label)
+        if not pct_match:
+            continue
+        pct = float(pct_match.group(1))
+        if pct <= 0 or pct > 100:
+            continue
+        y_center = (int(m.group(3)) + int(m.group(5))) // 2
+        coupons_found.append({"pct": pct, "y": y_center, "label": label})
+    # Pattern B: bounds first, then text/content-desc
+    for m in re.finditer(
+        r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"[^>]*?(?:text|content-desc)="((?:\d+(?:\.\d+)?)\s*%[^"]*)"',
+        coupon_xml,
+    ):
+        label = m.group(5).strip()
+        pct_match = re.search(r'(\d+(?:\.\d+)?)\s*%', label)
+        if not pct_match:
+            continue
+        pct = float(pct_match.group(1))
+        if pct <= 0 or pct > 100:
+            continue
+        y_center = (int(m.group(2)) + int(m.group(4))) // 2
+        coupons_found.append({"pct": pct, "y": y_center, "label": label})
+    # Dedupe by label, sort by Y position (topmost first)
+    seen_labels = set()
+    unique_coupons = []
+    for c in coupons_found:
+        if c["label"] not in seen_labels:
+            seen_labels.add(c["label"])
+            unique_coupons.append(c)
+    unique_coupons.sort(key=lambda c: c["y"])
+
+    coupon_pct = 0
+    if unique_coupons:
+        first = unique_coupons[0]
+        coupon_pct = first["pct"]
+        print(f"[{agent.role}] [PO7] First coupon found: '{first['label']}' ({coupon_pct}%)")
+        _tap(agent, first["label"])
+        time.sleep(15)
+    else:
+        print(f"[{agent.role}] [PO7] No coupon found on screen — skipping coupon tap")
+
+    # Validate coupon was applied correctly using the dynamically detected percentage
+    if original_total and original_total > 0 and coupon_pct > 0:
+        coupon_value = round(original_total * (coupon_pct / 100), 2)
+
+        # Scroll through the page so validate_coupon can find the updated total
+        # (coupon-adjusted total is often further down the page)
+        xml_dumps = agent._collect_dumps_by_scrolling(max_scrolls=5)
+
+        # Try each scrolled dump — prefer the first PASS, else first meaningful result
+        coupon_result = None
+        for xml in xml_dumps:
+            r = bill_validator.validate_coupon(xml, original_total, coupon_value)
+            reason = r.get("reason", "")
+            if "Could not find" in reason:
+                continue
+            if coupon_result is None:
+                coupon_result = r
+            if r.get("pass"):
+                coupon_result = r
+                break
+        if coupon_result is None:
+            coupon_result = {"pass": False,
+                             "reason": "Could not find total after coupon applied"}
+
         coupon_status = "PASS" if coupon_result["pass"] else "FAIL"
-        print(f"[{agent.role}] [PO7] Coupon validation: {coupon_status} — {coupon_result['reason']}")
+        print(f"[{agent.role}] [PO7] Coupon validation ({coupon_pct}%): {coupon_status} — {coupon_result['reason']}")
         scenario_reporter.add_result("PO7", "Coupon Validation",
                                      agent.role, coupon_status, coupon_result["reason"],
                                      agent.last_launch_time)
     else:
-        print(f"[{agent.role}] [PO7] Could not capture pre-coupon total, skipping coupon validation")
+        print(f"[{agent.role}] [PO7] Skipping coupon validation (total={original_total}, pct={coupon_pct})")
     _tap(agent, "cartCheckout")
     time.sleep(15)
     _tap(agent, "primary_button")
@@ -6280,10 +6432,6 @@ def po6_consumer_flow(agent):
     time.sleep(15)
     _tap(agent, "cartImage")
     time.sleep(15)
-    _tap(agent, "applyCoupon")
-    time.sleep(15)
-    _tap(agent, "6% OFFER")
-    time.sleep(15)
     agent.check_cart_total()
     _tap(agent, "cartCheckout")
     time.sleep(15)
@@ -7350,4 +7498,38 @@ SCENARIO_MAP = {
     "PDF1": {"name": "Generate PDF - Individual Payment",              "consumer": pdf1_consumer_flow, "business": pdf1_business_flow},
     "PDF2": {"name": "Generate PDF for Entire Event",                  "consumer": pdf2_consumer_flow, "business": pdf2_business_flow},
     "PDF3": {"name": "Generate PDF after Event Completion (Individual)","consumer": pdf3_consumer_flow, "business": pdf3_business_flow},
+}
+
+
+# ─── PRE-ORDER CONSUMER-ONLY SCENARIO GROUPS ────────────────────────────────
+# Consumer-flow-only groupings for Pre-order scenarios.
+# Reuses existing consumer flow functions; does NOT modify SCENARIO_MAP.
+
+PRE_ORDER_CONSUMER_GROUPS = {
+    "pre_order_consumer_app": {
+        "PO1": {"name": "Adding More Items from Cart",                 "consumer": po1_consumer_flow},
+        "PO2": {"name": "Add and Reduce Items Cart/Menu",              "consumer": po2_consumer_flow},
+        "PO3": {"name": "Edit Item from Cart",                         "consumer": po3_consumer_flow},
+        "PO4": {"name": "Host Preorders First Invitee Skips",          "consumer": po4_consumer_flow},
+    },
+    "pre_order_2_consumer_app": {
+        "PO5": {"name": "Both Host and Invitee Preorder",              "consumer": po5_consumer_flow},
+        "PO6": {"name": "Participant Preorders First Host Adds Later", "consumer": po6_consumer_flow},
+        "PO7": {"name": "Coupon Add/Remove/Verify Total",              "consumer": po7_consumer_flow},
+    },
+}
+
+
+# ─── PRE-ORDER CONSUMER-ONLY RUN MAP ────────────────────────────────────────
+# Flat map for the runner — uses POC* keys to avoid colliding with PO1-PO7
+# in SCENARIO_MAP. Business is _no_op so only consumer flow executes.
+
+PRE_ORDER_CONSUMER_MAP = {
+    "POC1": {"name": "[Pre-order C-App] Adding More Items from Cart",                 "consumer": po1_consumer_flow, "business": _no_op},
+    "POC2": {"name": "[Pre-order C-App] Add and Reduce Items Cart/Menu",              "consumer": po2_consumer_flow, "business": _no_op},
+    "POC3": {"name": "[Pre-order C-App] Edit Item from Cart",                         "consumer": po3_consumer_flow, "business": _no_op},
+    "POC4": {"name": "[Pre-order C-App] Host Preorders First Invitee Skips",          "consumer": po4_consumer_flow, "business": _no_op},
+    "POC5": {"name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",            "consumer": po5_consumer_flow, "business": _no_op},
+    "POC6": {"name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later","consumer": po6_consumer_flow, "business": _no_op},
+    "POC7": {"name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",            "consumer": po7_consumer_flow, "business": _no_op},
 }

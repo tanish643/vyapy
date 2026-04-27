@@ -777,10 +777,18 @@ if __name__ == "__main__":
     consumer_agent = VyapyAgent(serial_id=CONSUMER_SERIAL, package_name=CONSUMER_APP_PACKAGE, role_name="Consumer")
     business_agent = VyapyAgent(serial_id=BUSINESS_SERIAL, package_name=BUSINESS_APP_PACKAGE, role_name="Business")
 
-    all_keys = list(scenarios.SCENARIO_MAP.keys())
+    main_keys = list(scenarios.SCENARIO_MAP.keys())
+    consumer_only_keys = list(scenarios.PRE_ORDER_CONSUMER_MAP.keys())
+    all_keys = main_keys + consumer_only_keys
+
+    # Combined map for lookups
+    COMBINED_MAP = {**scenarios.SCENARIO_MAP, **scenarios.PRE_ORDER_CONSUMER_MAP}
 
     print("\nAvailable Scenarios:")
     for i, (key, s) in enumerate(scenarios.SCENARIO_MAP.items(), 1):
+        print(f"  {i:>2}. [{key}] {s['name']}")
+    print("\n── Pre-order (Consumer-only) ──")
+    for i, (key, s) in enumerate(scenarios.PRE_ORDER_CONSUMER_MAP.items(), len(main_keys) + 1):
         print(f"  {i:>2}. [{key}] {s['name']}")
     print("\nExamples:")
     print(f"  all          → run all {len(all_keys)} scenarios")
@@ -788,6 +796,7 @@ if __name__ == "__main__":
     print("  31           → run scenario #31 by position")
     print("  CW1          → run a single scenario by key")
     print("  CW1,EB1,O1   → run specific scenarios by key")
+    print("  POC1         → run a Pre-order consumer-only scenario")
 
     import sys
     if len(sys.argv) > 1:
@@ -815,7 +824,7 @@ if __name__ == "__main__":
     elif "," in choice:
         # Comma-separated keys like "CW1,EB1,O1"
         requested = [k.strip().upper() for k in choice.split(",")]
-        invalid = [k for k in requested if k not in scenarios.SCENARIO_MAP]
+        invalid = [k for k in requested if k not in COMBINED_MAP]
         if invalid:
             print(f"Unknown scenario keys: {invalid}")
             exit(1)
@@ -830,7 +839,7 @@ if __name__ == "__main__":
             print(f"Invalid position: {choice}. Must be 1-{len(all_keys)}.")
             exit(1)
 
-    elif choice.upper() in scenarios.SCENARIO_MAP:
+    elif choice.upper() in COMBINED_MAP:
         keys_to_run = [choice.upper()]
 
     else:
@@ -851,6 +860,11 @@ if __name__ == "__main__":
             print("\n[FORCE KILL] Second Ctrl+C — terminating immediately.")
             scenario_reporter.print_summary()
             scenario_reporter.save_run_to_history()
+            try:
+                import vya_test_report
+                vya_test_report.build_report()
+            except Exception as _e:
+                print(f"[Vya Test Report] Skipped on force-kill: {_e}")
             os._exit(1)
 
     signal.signal(signal.SIGINT, signal_handler)
@@ -860,10 +874,15 @@ if __name__ == "__main__":
             if scenarios.stop_event.is_set():
                 print(f"\n[STOPPED] Skipping remaining scenarios.")
                 break
-            run_scenario(key, scenarios.SCENARIO_MAP[key], consumer_agent, business_agent)
+            run_scenario(key, COMBINED_MAP[key], consumer_agent, business_agent)
     except KeyboardInterrupt:
         print("\n[INTERRUPTED] Stopping...")
         scenarios.request_stop()
     finally:
         scenario_reporter.print_summary()
         scenario_reporter.save_run_to_history()
+        try:
+            import vya_test_report
+            vya_test_report.build_report()
+        except Exception as _e:
+            print(f"[Vya Test Report] Could not auto-generate report: {_e}")

@@ -1,0 +1,1645 @@
+{
+  "current": null,
+  "history": [
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.22,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 17:14:22",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 17:14:22",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 17:14:22",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 17:16:00",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 17:14:22",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 17:14:22",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.22,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 17:13:37",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€130.73, calculated=€2183.48, diff=€2052.75; Items: €861.84 + €2.06 + €1053.00 + €5.00 + €130.74 + €123.42 + €7.32 + €0.10 = €2183.48; Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80; Interrupted by user",
+      "timestamp": "2026-04-22 17:06:57",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.31,
+      "reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€2183.48, diff=€2052.75; Items: €861.84 + €2.06 + €1053.00 + €5.00 + €130.74 + €123.42 + €7.32 + €0.10 = €2183.48",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€2183.48, diff=€2052.75; Items: €861.84 + €2.06 + €1053.00 + €5.00 + €130.74 + €123.42 + €7.32 + €0.10 = €2183.48",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC5",
+      "name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 16:28:31",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.37,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.32,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 16:16:09",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 16:16:09",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Verify Total",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 16:16:09",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 16:17:42",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 16:16:09",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO7",
+      "name": "Coupon Validation",
+      "status": "FAIL",
+      "error": "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94",
+      "timestamp": "2026-04-22 16:16:09",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": 0.32,
+      "reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "consumer_reasons": [
+        "Coupon mismatch: expected=€249.76, displayed=€265.70, diff=€15.94"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC7",
+      "name": "[Pre-order 2 C-App] Coupon Add/Remove/Verify Total",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70",
+      "timestamp": "2026-04-22 16:15:27",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€265.70, calculated=€0.70, diff=€265.00; Items: €0.70 = €0.70"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:04:20",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.48,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO6",
+      "name": "Participant Preorders First Host Adds Later",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:04:20",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.48,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84; Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80; Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57; Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 15:56:46",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO6",
+      "name": "Participant Preorders First Host Adds Later",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:04:20",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.48,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84; Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80; Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57; Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 15:56:46",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO6",
+      "name": "Participant Preorders First Host Adds Later",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 16:04:20",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.48,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84; Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80; Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57; Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 15:56:46",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84; Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80; Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57; Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40",
+      "timestamp": "2026-04-22 15:56:46",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€130.73, calculated=€130.84, diff=€0.11; Items: €123.42 + €7.32 + €0.10 = €130.84",
+        "Bill check — PASSED: Sum Excl.Tax (€130.21) + Sum VAT (€0.52) = €130.73 = Total €130.74 ✓ || FAILED: Items sum mismatch: displayed=€130.74, calculated=€7.32, diff=€123.42 | VAT 3.0% mismatch: expected 3.0/100 × €7.21 = €0.22, displayed=€0.10, diff=€0.12 | VAT 14.0% mismatch: expected 14.0/100 × €123.00 = €17.22, displayed=€0.42, diff=€16.80",
+        "Cart total mismatch: displayed=€265.70, calculated=€26.57, diff=€239.13; Items: €26.57 = €26.57",
+        "Bill check — PASSED: Sum Excl.Tax (€265.00) + Sum VAT (€0.70) = €265.70 = Total €265.70 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €265.00 = €37.10, displayed=€0.70, diff=€36.40"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC6",
+      "name": "[Pre-order 2 C-App] Participant Preorders First Host Adds Later",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 15:39:42",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.25,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC5",
+      "name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€533.64, calculated=€194.15, diff=€339.49; Items: €162.58 + €3.83 + €7.21 + €3.96 + €15.45 + €1.12 = €194.15; Bill check — PASSED: Items sum (€533.64) = Total (€533.64) ✓ | Sum Excl.Tax (€531.26) + Sum VAT (€2.38) = €533.64 = Total €533.64 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €40.95 = €1.23, displayed=€1.12, diff=€0.11 | VAT 14.0% mismatch: expected 14.0/100 × €490.31 = €68.64, displayed=€1.26, diff=€67.38; Interrupted by user",
+      "timestamp": "2026-04-22 15:32:45",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.18,
+      "reasons": [
+        "Cart total mismatch: displayed=€533.64, calculated=€194.15, diff=€339.49; Items: €162.58 + €3.83 + €7.21 + €3.96 + €15.45 + €1.12 = €194.15",
+        "Bill check — PASSED: Items sum (€533.64) = Total (€533.64) ✓ | Sum Excl.Tax (€531.26) + Sum VAT (€2.38) = €533.64 = Total €533.64 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €40.95 = €1.23, displayed=€1.12, diff=€0.11 | VAT 14.0% mismatch: expected 14.0/100 × €490.31 = €68.64, displayed=€1.26, diff=€67.38",
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€533.64, calculated=€194.15, diff=€339.49; Items: €162.58 + €3.83 + €7.21 + €3.96 + €15.45 + €1.12 = €194.15",
+        "Bill check — PASSED: Items sum (€533.64) = Total (€533.64) ✓ | Sum Excl.Tax (€531.26) + Sum VAT (€2.38) = €533.64 = Total €533.64 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €40.95 = €1.23, displayed=€1.12, diff=€0.11 | VAT 14.0% mismatch: expected 14.0/100 × €490.31 = €68.64, displayed=€1.26, diff=€67.38",
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC5",
+      "name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 15:20:22",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.27,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC5",
+      "name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 15:15:07",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.33,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC4",
+      "name": "[Pre-order C-App] Host Preorders First Invitee Skips",
+      "status": "FAIL",
+      "error": "Cart total mismatch: displayed=€38.50, calculated=€39.15, diff=€0.65; Items: €3.83 + €15.82 + €15.02 + €4.48 = €39.15; Bill check — PASSED: Items sum (€38.50) = Total (€38.50) ✓ | Sum Excl.Tax (€34.02) + Sum VAT (€4.48) = €38.50 = Total €38.50 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €34.02 = €4.76, displayed=€4.48, diff=€0.28; Interrupted by user",
+      "timestamp": "2026-04-22 15:02:25",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.34,
+      "reasons": [
+        "Cart total mismatch: displayed=€38.50, calculated=€39.15, diff=€0.65; Items: €3.83 + €15.82 + €15.02 + €4.48 = €39.15",
+        "Bill check — PASSED: Items sum (€38.50) = Total (€38.50) ✓ | Sum Excl.Tax (€34.02) + Sum VAT (€4.48) = €38.50 = Total €38.50 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €34.02 = €4.76, displayed=€4.48, diff=€0.28",
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Cart total mismatch: displayed=€38.50, calculated=€39.15, diff=€0.65; Items: €3.83 + €15.82 + €15.02 + €4.48 = €39.15",
+        "Bill check — PASSED: Items sum (€38.50) = Total (€38.50) ✓ | Sum Excl.Tax (€34.02) + Sum VAT (€4.48) = €38.50 = Total €38.50 ✓ || FAILED: VAT 14.0% mismatch: expected 14.0/100 × €34.02 = €4.76, displayed=€4.48, diff=€0.28",
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC5",
+      "name": "[Pre-order 2 C-App] Both Host and Invitee Preorder",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 14:37:07",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.24,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC4",
+      "name": "[Pre-order C-App] Host Preorders First Invitee Skips",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 14:32:53",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.32,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:19:31",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.2,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:19:31",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.2,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86",
+      "timestamp": "2026-04-22 14:19:29",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:19:31",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.2,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86",
+      "timestamp": "2026-04-22 14:19:29",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:19:31",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.2,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86",
+      "timestamp": "2026-04-22 14:19:29",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86",
+      "timestamp": "2026-04-22 14:19:29",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "consumer_reasons": [
+        "Bill check — PASSED: Sum Excl.Tax (€51.87) + Sum VAT (€8.62) = €60.49 = Total €60.49 ✓ || FAILED: VAT 3.0% mismatch: expected 3.0/100 × €4.37 = €0.13, displayed=€0.11, diff=€0.02 | VAT 14.0% mismatch: expected 14.0/100 × €47.50 = €6.65, displayed=€8.51, diff=€1.86"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC2",
+      "name": "[Pre-order C-App] Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:16:21",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.18,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:16:21",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.18,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:16:21",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.18,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:16:21",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.18,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC1",
+      "name": "[Pre-order C-App] Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:13:34",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.19,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:13:34",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.19,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:13:34",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.19,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 14:13:34",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.19,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC4",
+      "name": "[Pre-order C-App] Host Preorders First Invitee Skips",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 14:09:26",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.29,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC4",
+      "name": "[Pre-order C-App] Host Preorders First Invitee Skips",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 14:03:29",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.48,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC4",
+      "name": "[Pre-order C-App] Host Preorders First Invitee Skips",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 13:43:29",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.23,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:40:23",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:40:23",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 13:40:21",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:40:23",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 13:40:21",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO3",
+      "name": "Edit Item from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:40:23",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 13:40:21",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC3",
+      "name": "[Pre-order C-App] Edit Item from Cart",
+      "status": "FAIL",
+      "error": "Could not find items/VAT/Total to verify",
+      "timestamp": "2026-04-22 13:40:21",
+      "consumer_status": "FAIL",
+      "business_status": "N/A",
+      "launch_time": null,
+      "reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "consumer_reasons": [
+        "Could not find items/VAT/Total to verify"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC2",
+      "name": "[Pre-order C-App] Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:37:39",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.26,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:37:39",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.26,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:37:39",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.26,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO2",
+      "name": "Add and Reduce Items Cart/Menu",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:37:39",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.26,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC1",
+      "name": "[Pre-order C-App] Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:33:05",
+      "consumer_status": "PASS",
+      "business_status": "PASS",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:33:05",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:33:05",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "PO1",
+      "name": "Adding More Items from Cart",
+      "status": "PASS",
+      "error": "",
+      "timestamp": "2026-04-22 13:33:05",
+      "consumer_status": "PASS",
+      "business_status": "N/A",
+      "launch_time": 0.27,
+      "reasons": [
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Completed"
+      ],
+      "business_reasons": []
+    },
+    {
+      "num": "POC1",
+      "name": "[Pre-order C-App] Adding More Items from Cart",
+      "status": "FAIL",
+      "error": "Interrupted by user",
+      "timestamp": "2026-04-22 13:30:29",
+      "consumer_status": "FAIL",
+      "business_status": "PASS",
+      "launch_time": 0.37,
+      "reasons": [
+        "Interrupted by user",
+        "Completed"
+      ],
+      "consumer_reasons": [
+        "Interrupted by user"
+      ],
+      "business_reasons": [
+        "Completed"
+      ]
+    }
+  ]
+}
