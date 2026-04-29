@@ -830,3 +830,164 @@ def validate_coupon(xml, original_total, coupon_value):
             f"Coupon OK: €{original_total:.2f} - €{coupon_value:.2f} = €{displayed_total:.2f}"
         )
     }
+
+
+# ─── Layer 3: Adaptive bill validator ────────────────────────────────────────
+def validate_bill_adaptive(xml_dumps, session=None):
+    """Adaptive wrapper around validate_bill_with_vat.
+
+    Always returns a superset of validate_bill_with_vat's result, so it is a
+    safe drop-in replacement. When `session` (a dict, typically from
+    _BillSession.to_dict()) is supplied, additional payment-aware checks are
+    performed and a plain-English narrative is built into result['narrative'].
+
+    Adds these fields to the result dict:
+        narrative        — plain-English summary of what happened
+        who_paid_what    — list of {payer, amount, method, on_behalf_of}
+        session_checks   — extra checks derived from the session
+    """
+    base = validate_bill_with_vat(xml_dumps)
+    base.setdefault("narrative", "")
+    base.setdefault("who_paid_what", [])
+    base.setdefault("session_checks", [])
+
+    grand_total = base.get("grand_total")
+
+    # Without session: build a generic narrative from extracted data
+    if not session:
+        bits = []
+        if grand_total is not None:
+            bits.append(f"Bill total: €{grand_total:.2f}.")
+        for row in base.get("vat_rows", []):
+            pct, excl, amt = row.get("vat_percent"), row.get("excl_tax"), row.get("vat_amount")
+            if pct is not None and excl is not None and amt is not None:
+                expected = round((pct / 100) * excl, 2)
+                tick = "OK" if abs(amt - expected) <= 0.01 else "MISMATCH"
+                bits.append(
+                    f"VAT {pct}%: should be {pct}/100 × €{excl:.2f} = €{expected:.2f}, "
+                    f"displayed €{amt:.2f} ({tick})."
+                )
+        bits.append("All amounts reconcile." if base.get("pass")
+                    else "Discrepancies detected.")
+        base["narrative"] = " ".join(bits)
+        return base
+
+    payments = session.get("payments_made") or []
+    tips = session.get("tips_added") or []
+    cart_total = session.get("cart_total_at_checkout")
+    coupon = session.get("coupon_applied")
+    scenario_key = session.get("scenario_key", "")
+    scenario_name = session.get("scenario_name", "")
+
+    # Build who-paid-what
+    who_paid_map = {}
+    for p in payments:
+        payer = p.get("payer", "Unknown")
+        amount = float(p.get("amount", 0) or 0)
+        who_paid_map[payer] = who_paid_map.get(payer, 0) + amount
+        base["who_paid_what"].append({
+            "payer": payer,
+            "amount": amount,
+            "method": p.get("method", ""),
+            "on_behalf_of": p.get("on_behalf_of") or [],
+        })
+    total_paid = round(sum(who_paid_map.values()), 2)
+    total_tip = round(sum(float(t) for t in tips), 2) if tips else 0.0
+
+    # Session-level checks
+    sc_pass, sc_fail = [], []
+
+    if grand_total is not None and total_paid > 0:
+        if total_paid + 0.01 >= grand_total:
+            sc_pass.append(
+                f"Total paid €{total_paid:.2f} covers bill €{grand_total:.2f} "
+                f"(change/extra: €{round(total_paid - grand_total, 2):.2f})"
+            )
+        else:
+            sc_fail.append(
+                f"Underpaid — bill €{grand_total:.2f}, paid €{total_paid:.2f}, "
+                f"short by €{round(grand_total - total_paid, 2):.2f}"
+            )
+
+    if cart_total is not None and grand_total is not None:
+        diff = round(abs(cart_total - grand_total), 2)
+        if diff <= 0.05:
+            sc_pass.append(
+                f"Cart total at checkout (€{cart_total:.2f}) matches final bill "
+                f"(€{grand_total:.2f})"
+            )
+        else:
+            sc_fail.append(
+                f"Cart-vs-final mismatch: cart €{cart_total:.2f} vs final "
+                f"€{grand_total:.2f}, diff €{diff:.2f}"
+            )
+
+    base["session_checks"] = sc_pass + sc_fail
+    if sc_fail:
+        base["pass"] = False
+
+    # Build plain-English narrative
+    parts = []
+    if scenario_key:
+        parts.append(f"What happened in {scenario_key} ({scenario_name}):")
+
+    method_label = {
+        "cash": "in cash",
+        "paidCash": "in cash (paid-cash)",
+        "epayment": "by E-payment",
+        "foodVoucher": "with food voucher",
+    }
+    for p in payments:
+        payer = p.get("payer", "Unknown")
+        amount = float(p.get("amount", 0) or 0)
+        method = p.get("method", "")
+        on_behalf = p.get("on_behalf_of") or []
+        ml = method_label.get(method, f"via {method}" if method else "")
+        if on_behalf:
+            covered = " and ".join(on_behalf)
+            parts.append(f"{payer} paid €{amount:.2f} {ml} — covered: {covered}.")
+        else:
+            parts.append(f"{payer} paid €{amount:.2f} {ml}.")
+
+    if tips:
+        parts.append(f"Tip added: €{total_tip:.2f}.")
+
+    if coupon:
+        parts.append(
+            f"Coupon applied ({coupon.get('label', 'discount')}): "
+            f"€{float(coupon.get('discount', 0) or 0):.2f} off."
+        )
+
+    if grand_total is not None and total_paid > 0:
+        change = round(total_paid - grand_total, 2)
+        if change > 0.05:
+            parts.append(
+                f"Total paid €{total_paid:.2f} / Bill €{grand_total:.2f} → "
+                f"Change due: €{change:.2f}."
+            )
+        elif change < -0.05:
+            parts.append(
+                f"Total paid €{total_paid:.2f} / Bill €{grand_total:.2f} → "
+                f"Short by €{-change:.2f}."
+            )
+        else:
+            parts.append(f"Total paid €{total_paid:.2f} = Bill €{grand_total:.2f}.")
+
+    for row in base.get("vat_rows", []):
+        pct, excl, amt = row.get("vat_percent"), row.get("excl_tax"), row.get("vat_amount")
+        if pct is not None and excl is not None and amt is not None:
+            expected = round((pct / 100) * excl, 2)
+            ok = abs(amt - expected) <= 0.01
+            tick = "✓" if ok else "✗"
+            parts.append(
+                f"VAT {pct}%: {pct}/100 × €{excl:.2f} = €{expected:.2f}, "
+                f"displayed €{amt:.2f} {tick}"
+            )
+
+    if base.get("pass") and not sc_fail:
+        parts.append("Result: PASS — all amounts reconcile.")
+    else:
+        parts.append("Result: FAIL — see issues above.")
+
+    base["narrative"] = " ".join(parts)
+    return base

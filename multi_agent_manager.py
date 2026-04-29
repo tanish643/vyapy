@@ -280,50 +280,258 @@ class VyapyAgent:
         return xml_dumps
 
     def check_cart_total(self):
-        """Simple cart check: verify sum of item prices = cart total.
-        Use after cartImage, before cartCheckout. No VAT check.
-        Scrolls through entire cart to collect all items.
-        - Ensures first screen items are always captured
-        - Strips VAT/Tax/CGST/SGST/Service Tax lines from item extraction"""
+        """Human-style cart total validator.
+
+        Reads the cart top→bottom in small scrolls (mimicking a human),
+        extracts items incrementally (deduped by name+price+qty), strictly
+        ignores VAT/Tax/% rows, and compares the running sum against the
+        displayed Total. Works for carts with 2 to 30+ items.
+        """
+        import re
+
+        # ── Patterns ─────────────────────────────────────────────────────
+        TAX_KEYWORDS = re.compile(
+            r'\b(VAT|Tax|CGST|SGST|Service\s*Tax|Excl\.?\s*Tax|Incl\.?\s*Tax|'
+            r'ATI|Subtotal|Sub\s*Total|Grand\s*Total|Delivery\s*Fee|'
+            r'Service\s*Charge|Charges?|Tip|Gratuity|Discount|Coupon)\b',
+            re.IGNORECASE,
+        )
+        PERCENT_PATTERN = re.compile(r'\d+(?:\.\d+)?\s*%')
+        PRICE_PATTERN = re.compile(r'^\s*(?:€|₹|\$)?\s*([\d,]+\.\d{1,2})\s*(?:€|₹|\$)?\s*$')
+        QTY_PATTERN = re.compile(r'^(.+?)\s*[x×]\s*(\d+)\s*$', re.IGNORECASE)
+        TOTAL_LABEL = re.compile(r'^\s*(?:Total|Grand\s*Total|Order\s*Total)\s*[:€$₹]?\s*$', re.IGNORECASE)
+        NODE_PAT_A = re.compile(
+            r'<node[^>]*?(?:text|content-desc)="([^"]+)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"',
+            re.IGNORECASE,
+        )
+        NODE_PAT_B = re.compile(
+            r'<node[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"[^>]*?(?:text|content-desc)="([^"]+)"',
+            re.IGNORECASE,
+        )
+        Y_TOLERANCE = 60  # pixels: nodes within this Y are "same row"
+
+        # ── Helper: capture first screen (no scroll) ─────────────────────
+        def capture_first_screen():
+            return self.dump_ui()
+
+        # ── Helper: small controlled scroll (~150 px) ────────────────────
+        def small_scroll():
+            self.adb("shell", "input", "swipe", "360", "1000", "360", "700", "400")
+            time.sleep(1.2)
+
+        # ── Helper: parse all text+bounds nodes from XML ─────────────────
+        def parse_nodes(xml):
+            nodes = []
+            seen = set()
+            for m in NODE_PAT_A.finditer(xml):
+                text = m.group(1).strip()
+                x1, y1, x2, y2 = int(m.group(2)), int(m.group(3)), int(m.group(4)), int(m.group(5))
+                if (x1 == 0 and y1 == 0 and x2 == 0 and y2 == 0) or not text:
+                    continue
+                key = (text, (y1+y2)//2)
+                if key in seen:
+                    continue
+                seen.add(key)
+                nodes.append({"text": text, "y": (y1+y2)//2, "x": (x1+x2)//2})
+            for m in NODE_PAT_B.finditer(xml):
+                x1, y1, x2, y2, text = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4)), m.group(5).strip()
+                if (x1 == 0 and y1 == 0 and x2 == 0 and y2 == 0) or not text:
+                    continue
+                key = (text, (y1+y2)//2)
+                if key in seen:
+                    continue
+                seen.add(key)
+                nodes.append({"text": text, "y": (y1+y2)//2, "x": (x1+x2)//2})
+            return nodes
+
+        # ── Helper: strict tax/total filter ──────────────────────────────
+        def filter_tax_elements(text):
+            """Return True if this text is tax/total/charge — must be skipped."""
+            if not text:
+                return True
+            if TAX_KEYWORDS.search(text):
+                return True
+            if PERCENT_PATTERN.search(text):
+                return True
+            return False
+
+        # ── Helper: extract cart items from one XML dump ─────────────────
+        def extract_items(xml):
+            """Pair each name node with its closest price node in the same row.
+            Respects quantity (`x N` / `× N`). Ignores tax/total nodes."""
+            nodes = parse_nodes(xml)
+            prices, names = [], []
+            for n in nodes:
+                txt = n["text"]
+                if filter_tax_elements(txt):
+                    continue
+                pm = PRICE_PATTERN.match(txt)
+                if pm:
+                    try:
+                        val = float(pm.group(1).replace(",", ""))
+                        if val > 0:
+                            prices.append({"y": n["y"], "x": n["x"], "val": val})
+                    except ValueError:
+                        pass
+                else:
+                    # Skip pure-numeric text and very short labels
+                    stripped = txt.replace(" ", "").replace(".", "").replace(",", "")
+                    if len(txt.strip()) >= 2 and not stripped.isdigit():
+                        names.append({"y": n["y"], "x": n["x"], "text": txt})
+
+            items, used = [], set()
+            for name in names:
+                best, best_dist, best_idx = None, float("inf"), None
+                for i, p in enumerate(prices):
+                    if i in used:
+                        continue
+                    dist = abs(p["y"] - name["y"])
+                    if dist < Y_TOLERANCE and dist < best_dist:
+                        best, best_dist, best_idx = p, dist, i
+                if best is not None:
+                    qty = 1
+                    clean_name = name["text"]
+                    qm = QTY_PATTERN.match(clean_name)
+                    if qm:
+                        clean_name = qm.group(1).strip()
+                        try:
+                            qty = int(qm.group(2))
+                        except ValueError:
+                            qty = 1
+                    items.append({
+                        "name": clean_name,
+                        "unit_price": best["val"],
+                        "qty": qty,
+                        "line_total": round(best["val"] * qty, 2),
+                    })
+                    used.add(best_idx)
+            return items
+
+        # ── Helper: find displayed total at end of scrolling ─────────────
+        def find_displayed_total(xml):
+            nodes = parse_nodes(xml)
+            # 1) Look for an explicit "Total" label and a price in the same row
+            for n in nodes:
+                if TOTAL_LABEL.match(n["text"]):
+                    for p in nodes:
+                        pm = PRICE_PATTERN.match(p["text"])
+                        if pm and abs(p["y"] - n["y"]) < Y_TOLERANCE:
+                            try:
+                                return float(pm.group(1).replace(",", ""))
+                            except ValueError:
+                                continue
+            # 2) Fallback: bottom-most non-tax price
+            candidates = []
+            for n in nodes:
+                if filter_tax_elements(n["text"]):
+                    continue
+                m = PRICE_PATTERN.match(n["text"])
+                if m:
+                    try:
+                        candidates.append((float(m.group(1).replace(",", "")), n["y"]))
+                    except ValueError:
+                        pass
+            if not candidates:
+                return None
+            candidates.sort(key=lambda c: (c[1], c[0]), reverse=True)
+            return candidates[0][0]
+
+        # ── Helper: validate total ───────────────────────────────────────
+        def validate_total(seen_items, displayed_total):
+            calculated = round(sum(v["line_total"] for v in seen_items.values()), 2)
+            items_str = " + ".join(f"€{v['line_total']:.2f}" for v in seen_items.values())
+            if displayed_total is None:
+                return {
+                    "pass": False,
+                    "displayed_total": None,
+                    "calculated_total": calculated,
+                    "line_items": [(v["name"], v["line_total"]) for v in seen_items.values()],
+                    "diff": 0.0,
+                    "reason": f"Cart: could not detect displayed total (calculated=€{calculated:.2f}, items={len(seen_items)})",
+                }
+            diff = round(abs(displayed_total - calculated), 2)
+            if diff <= 0.01:
+                return {
+                    "pass": True,
+                    "displayed_total": displayed_total,
+                    "calculated_total": calculated,
+                    "line_items": [(v["name"], v["line_total"]) for v in seen_items.values()],
+                    "diff": diff,
+                    "reason": f"Cart total OK: €{displayed_total:.2f} (Items: {items_str} = €{calculated:.2f})",
+                }
+            return {
+                "pass": False,
+                "displayed_total": displayed_total,
+                "calculated_total": calculated,
+                "line_items": [(v["name"], v["line_total"]) for v in seen_items.values()],
+                "diff": diff,
+                "reason": f"Cart total mismatch: displayed=€{displayed_total:.2f}, calculated=€{calculated:.2f}, diff=€{diff:.2f}; Items: {items_str}",
+            }
+
+        # ── MAIN FLOW ────────────────────────────────────────────────────
         try:
-            print(f"[{self.role}] Checking cart total (scrolling through entire cart)...")
+            print(f"[{self.role}] Checking cart total (human-style scroll)...")
+            seen_items = {}  # key: (name, unit_price, qty) → item dict
 
-            # Step 1: Capture first screen BEFORE any scrolling
-            first_xml = self.dump_ui()
-            time.sleep(1)
+            # Step 1: First screen — extract IMMEDIATELY (fixes "first item missed")
+            first_xml = capture_first_screen()
+            last_xml = first_xml
+            for item in extract_items(first_xml):
+                key = (item["name"], item["unit_price"], item["qty"])
+                if key not in seen_items:
+                    seen_items[key] = item
+            print(f"[{self.role}] First screen captured {len(seen_items)} item(s)")
 
-            # Step 2: Scroll and collect remaining dumps
-            xml_dumps = self._collect_dumps_by_scrolling(max_scrolls=10)
+            # Step 2: Iterative small scrolls + incremental dedup
+            MAX_SCROLLS = 30  # supports large carts (30+ items)
+            STABLE_LIMIT = 2  # stop after 2 scrolls with no new items
+            stable_count = 0
+            scrolls_done = 0
 
-            # Step 3: Ensure first screen is always included at position 0
-            if not xml_dumps or xml_dumps[0] != first_xml:
-                xml_dumps.insert(0, first_xml)
+            for i in range(MAX_SCROLLS):
+                small_scroll()
+                scrolls_done += 1
+                xml = self.dump_ui()
+                if xml == last_xml:
+                    break  # screen didn't change — reached bottom
+                new_count = 0
+                for item in extract_items(xml):
+                    key = (item["name"], item["unit_price"], item["qty"])
+                    if key not in seen_items:
+                        seen_items[key] = item
+                        new_count += 1
+                if new_count == 0:
+                    stable_count += 1
+                    if stable_count >= STABLE_LIMIT:
+                        break
+                else:
+                    stable_count = 0
+                last_xml = xml
 
-            # Step 4: Strip VAT/Tax related nodes from all dumps before validation
-            import re
-            vat_keywords = re.compile(
-                r'\b(VAT|Tax|CGST|SGST|Service\s*Tax|Excl\.?\s*Tax|ATI|Incl\.?)\b',
-                re.IGNORECASE
-            )
-            pct_pattern = re.compile(r'\d+(\.\d+)?\s*%')
+            # Step 3: Find displayed total from last (bottom-most) screen
+            displayed_total = find_displayed_total(last_xml)
 
-            cleaned_dumps = []
-            for xml in xml_dumps:
-                # Remove entire <node> elements whose text/content-desc contains VAT/tax keywords or percentage patterns
-                cleaned = re.sub(
-                    r'<node\b[^>]*?(?:text|content-desc)="([^"]*)"[^>]*/?>',
-                    lambda m: '' if (vat_keywords.search(m.group(1)) or pct_pattern.search(m.group(1))) else m.group(0),
-                    xml
-                )
-                cleaned_dumps.append(cleaned)
+            # Step 4: Scroll back to top so subsequent steps start fresh
+            for _ in range(min(scrolls_done + 1, 12)):
+                self.adb("shell", "input", "swipe", "360", "700", "360", "1000", "300")
+                time.sleep(0.3)
 
-            result = bill_validator.validate_cart_total_only(cleaned_dumps)
+            # Step 5: Validate
+            result = validate_total(seen_items, displayed_total)
 
+            # Step 6: Failure handling
             status = "PASS" if result["pass"] else "FAIL"
             shot = None
             if not result["pass"]:
                 shot = self.screenshot(f"cart_fail_{int(time.time())}")
                 self.last_screenshot = shot
+                print(f"[{self.role}] === Cart items captured ({len(seen_items)}) ===")
+                for v in seen_items.values():
+                    print(f"[{self.role}]   {v['name']} (×{v['qty']}) @ €{v['unit_price']:.2f} = €{v['line_total']:.2f}")
+                print(f"[{self.role}] Calculated: €{result['calculated_total']:.2f}")
+                disp = result.get("displayed_total")
+                print(f"[{self.role}] Displayed:  €{disp:.2f}" if disp is not None else f"[{self.role}] Displayed:  not detected")
+                print(f"[{self.role}] Diff:       €{result.get('diff', 0):.2f}")
 
             scenario_reporter.add_result(
                 scenario_num=self.current_scenario_num,
@@ -641,6 +849,92 @@ JSON?"""
 import scenarios
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+# ───── MULTI-AGENT FLOW REFERENCE for PAY9-PAY15 + REV1-REV3 ─────
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# These scenarios run on TWO devices coordinated by run_scenario() below:
+#   • Consumer device → runs consumer phase functions
+#   • Business iPad   → runs business phase functions
+#
+# PAY9-PAY15 use order="phased" — they alternate strictly between agents:
+#
+#   PHASE 1 (consumer) — Person A logs in → NylaiKitchen → counterPlus +
+#       guestAdd → contactSearch → invite Person B → bookAppoitment →
+#       orderLater → switch_account to Person B → walletTab → wait for
+#       InviteCard → eventAccept → orderLater
+#       END: ReservedOrderCard now exists in business Orders list
+#                                  ↓
+#   PHASE 2 (business) — Orders → ReservedOrderCard → T0AssignAnyBtn →
+#       AssignTableBtn → addItemsBtn → category → tap items+variants →
+#       applyOpt → assignToBtn → selectAll → assignProductsBtn →
+#       selectAllItemsBtn → sendItemsBtn → backButton → switch to KITCHEN
+#       (kempA) → inProgressOrderCard → tap each kitchen item → orderReadyBtn
+#       → orderCloseBtn → switch to SERVE (empA) → Orders → ServeOrderCard →
+#       selectAllItemsBtn → serveItemsBtn → notifyPaymentBtn
+#       END: consumer wallet shows "NylaiKitchenCard PAYMENT REQUESTED"
+#                                  ↓
+#   PHASE 3 (consumer) — walletTab → _wait_for_card("NylaiKitchenCard
+#       PAYMENT REQUESTED") → swipe → RoopaDfinishedCard → tap a payment
+#       option:
+#           • "Guest 1pay"   = pay for Guest1's portion (PAY9)
+#           • "NooluNagapay" = pay for NooluNaga's portion (PAY10)
+#           • "Mepay"        = pay for own portion (PAY11)
+#           • "payTotal"     = pay entire bill (PAY12, PAY13, PAY14, PAY15)
+#       → proceedPayment → type amount in "0,00 €" field → optional
+#       eApplyCoupons → coupon → ePayment / eCash / eFoodVoucher →
+#       ePaymentConfirm + waiterNotify (or "Pay € XX.XX" for ePayment)
+#       END: business order transitions to PaymentOrderCard (partial pay)
+#            or PaymentDoneOrderCard (full pay)
+#                                  ↓
+#   PHASE 4 (business) — Orders → _wait_for_card("PaymentOrderCard" or
+#       "PaymentDoneOrderCard") → if partial: Payment Payment → tap remaining
+#       person's Card → cashPaymentBtn → numbers → userInputBtn → optional
+#       tipBtn → swipe up → paymentConfirmBtn → Assign/Split → addItemsBtn →
+#       eventInvoice or individualInvoice → printNow → swipe → backButton →
+#       Overview → closeTableBtn
+#       END: event closed, consumer wallet shows
+#            "NylaiKitchenCard PAYMENT COMPLETED"
+#                                  ↓
+#   PHASE 5 (REV1/REV2/REV3 only, consumer-only) — walletTab →
+#       _wait_for_card("NylaiKitchenCard PAYMENT COMPLETED") → swipe → starN
+#       → category stars (Service/Food/Ambiance) → item stars → comment
+#       textbox → submitReview → finishedBlock → homeTab. REV3 runs this
+#       twice with switch_account in between for both host and participant.
+#
+# SPECIAL CASE — PAY14 (Remind Payment + Re-Checkout):
+#   Phase 3 is interrupted. Consumer starts payTotal+proceedPayment but
+#   stops at the "ePayTip" prompt. Business sees this, sends remindPayment.
+#   Consumer re-opens NylaiKitchenCard → payTotal → proceedPayment → types
+#   €5.123 → eFoodVoucher → ePaymentConfirm → waiterNotify. Business then
+#   does Phase 4 with NooluNagaCard + foodVoucher + epay.
+#
+# SPECIAL CASE — PAY15 (Whom-to-Pay Check):
+#   Phase 3 has multiple account switches: Noolu starts payTotal →
+#   walletBackBtn, Roopa checks her screen, Noolu does YES, RE-CHECKOUT →
+#   Mepay, finally Roopa does payTotal → ePayment to settle. Phase 4 just
+#   closes the table since payment is fully done.
+#
+# ACCOUNTS:
+#   • roopa@xorstack.com / 12345     → "Roopa" (consumer)
+#   • noolu@xorstack.com / 12345     → "Noolu" / "NooluNaga" (consumer)
+#   • kempA@xorstack.com / Nylaii@09 → kitchen staff (business)
+#   • empA@xorstack.com  / Nylaii@06 → serve staff (business)
+#
+# CARD STATE TRANSITIONS (business Orders screen):
+#   ReservedOrderCard → (after assign+sendItems) → inProgressOrderCard
+#     → (after kitchen ready+close) → ServeOrderCard
+#     → (after notifyPaymentBtn) → PaymentOrderCard
+#     → (after partial C-App pay) → still PaymentOrderCard (need B-App cash)
+#     → (after full C-App pay) → PaymentDoneOrderCard (just close)
+#
+# Why _wait_for_card not time.sleep:
+#   Consumer's C-App payment can take 5s on fast network, 60s on slow.
+#   Hardcoded sleeps either waste time or fail. _wait_for_card polls every
+#   ~3s and proceeds the instant the card appears (max_attempts=24 → 72s).
+# ═══════════════════════════════════════════════════════════════════════════
+
+
 def run_scenario(num, scenario, consumer_agent, business_agent):
     """Run one scenario with both agents in parallel and record results."""
     name = scenario["name"]
@@ -686,9 +980,32 @@ def run_scenario(num, scenario, consumer_agent, business_agent):
     # "consumer_first" (default) = consumer runs first, then business
     # "business_first" = business runs first, then consumer
     # "parallel" = both run simultaneously (old behavior)
+    # "phased"   = run scenario["phases"] in strict order, alternating agents.
+    #              Each phase is a (agent_role, function) tuple. Each function
+    #              completes fully before the next phase starts.
     order = scenario.get("order", "consumer_first")
     try:
-        if order == "business_first":
+        if order == "phased":
+            phases = scenario.get("phases", [])
+            print(f"[{num}] Running {len(phases)} phases in strict order...")
+            for i, (agent_role, phase_fn) in enumerate(phases, start=1):
+                if scenarios.stop_event.is_set():
+                    print(f"[{num}] Stop requested before phase {i} — aborting")
+                    break
+                target_agent = consumer_agent if agent_role == "consumer" else business_agent
+                err_list = consumer_errors if agent_role == "consumer" else business_errors
+                print(f"[{num}] Phase {i}/{len(phases)} → {agent_role}: {phase_fn.__name__}")
+                try:
+                    phase_fn(target_agent)
+                except scenarios.BotStopped:
+                    err_list.append("Interrupted by user")
+                    break
+                except Exception as e:
+                    err_list.append(str(e))
+                    print(f"[{agent_role.title()}] ERROR in phase {i}: "
+                          f"{str(e).encode('ascii', errors='replace').decode('ascii')}")
+                    break
+        elif order == "business_first":
             print(f"[{num}] Running business first, then consumer...")
             t2.start()
             while t2.is_alive():
@@ -865,6 +1182,11 @@ if __name__ == "__main__":
                 vya_test_report.build_report()
             except Exception as _e:
                 print(f"[Vya Test Report] Skipped on force-kill: {_e}")
+            try:
+                import vya_payment_report
+                vya_payment_report.build_report()
+            except Exception as _e:
+                print(f"[Vya Payment Report] Skipped on force-kill: {_e}")
             os._exit(1)
 
     signal.signal(signal.SIGINT, signal_handler)
@@ -886,3 +1208,8 @@ if __name__ == "__main__":
             vya_test_report.build_report()
         except Exception as _e:
             print(f"[Vya Test Report] Could not auto-generate report: {_e}")
+        try:
+            import vya_payment_report
+            vya_payment_report.build_report()
+        except Exception as _e:
+            print(f"[Vya Payment Report] Could not auto-generate report: {_e}")
