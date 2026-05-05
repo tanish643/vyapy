@@ -3167,7 +3167,6 @@ def pay1_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    _wait_for_payment_completion(agent, "PAY1", "Payment by Cash")
     # Close table
     _tap(agent, "Overview")
     time.sleep(5)
@@ -5106,6 +5105,7 @@ def pay8_consumer_flow(agent):
     invites Noolu; Noolu accepts; Noolu later places extra menu orders."""
     print(f"[{agent.role}] [PAY8] 5 users ordering more items")
     agent.launch_app()
+    _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "NylaiKitchen")
     time.sleep(3)
@@ -5491,11 +5491,11 @@ def pay8_business_flow(agent):
 
 # ─── COMBINED PAYMENTS (PAY9-PAY11) ──────────────────────────────────────────
 
-def pay9_consumer_flow(agent):
-    """PAY9 Consumer: Invitee Pays for 1 Guest (C-App) + Remaining via B-App.
-    Roopa books with 1 guest + invites Noolu. Noolu accepts, then pays Guest1's
-    portion via 25% OFFER ePayment (€2.25 tip + €44.27 total)."""
-    print(f"[{agent.role}] [PAY9] Invitee Pays for 1 Guest (C-App)")
+# PAY9 — split into 4 phases for strict sequential alternation.
+
+def pay9_consumer_phase1(agent):
+    """PAY9 Phase 1 (consumer): Roopa books + invites Noolu, switches to Noolu, accepts."""
+    print(f"[{agent.role}] [PAY9] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
@@ -5509,6 +5509,8 @@ def pay9_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "NooluInvite")
     time.sleep(3)
+    _tap(agent, "Noolu")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -5516,53 +5518,21 @@ def pay9_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Noolu and accept invite
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "RoopaDInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "RoopaDInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business to assign + kitchen + serve, then go to wallet for C-App payment
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.swipe_up()
-    time.sleep(2)
-    _tap(agent, "RoopaDfinishedCard")
-    time.sleep(3)
-    # Pay for Guest 1 with 25% OFFER coupon via ePayment
-    _tap(agent, "Guest 1pay", "Guest1pay")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "2.25")
-    time.sleep(2)
-    _tap(agent, "eApplyCoupons")
-    time.sleep(3)
-    _tap(agent, "25% OFFER")
-    time.sleep(3)
-    _tap(agent, "ePayment")
-    time.sleep(5)
-    _tap(agent, "Pay €", "Pay")
-    time.sleep(10)
-    scenario_reporter.add_result("PAY9", "Invitee Pays for 1 Guest (C-App) + Remaining via B-App",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay9_business_flow(agent):
-    """PAY9 Business: Assign + add Three-CheeseRisotto + PizzaProsciuttoeFunghi,
-    kitchen, serve, then RoopaDCard cash 26 + tip 4. Print invoices, close table."""
-    print(f"[{agent.role}] [PAY9] Process invitee-pays-for-guest order")
+def pay9_business_phase2(agent):
+    """PAY9 Phase 2 (business): Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY9] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -5577,21 +5547,22 @@ def pay9_business_flow(agent):
     time.sleep(3)
     _tap(agent, "AssignTableBtn")
     time.sleep(5)
-    # Add items: Three-CheeseRisotto small + PizzaProsciuttoeFunghi + Spicysalami
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal PizzaProsciuttoeFunghi
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -5610,7 +5581,6 @@ def pay9_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -5621,7 +5591,6 @@ def pay9_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -5638,7 +5607,51 @@ def pay9_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer to do C-App ePayment (poll for PaymentOrderCard)
+
+
+def pay9_consumer_phase3(agent):
+    """PAY9 Phase 3 (consumer): walletTab → NylaiKitchenCard → swipe → RoopaDfinishedCard
+    → Guest 1pay → proceedPayment → tip €2.25 → 25% OFFER coupon → ePayment → primary_button.
+    Pays for Guest 1's portion only (partial payment)."""
+    print(f"[{agent.role}] [PAY9] Phase 3: Pay for Guest 1 with 25% OFFER")
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "RoopaDfinishedCard")
+    time.sleep(3)
+    _tap(agent, "Guest 1pay", "Guest1pay")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "2.25")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "eApplyCoupons")
+    time.sleep(3)
+    _tap(agent, "25% OFFER")
+    time.sleep(3)
+    _tap(agent, "ePayment")
+    time.sleep(30)
+    _tap(agent, "primary_button")
+    time.sleep(30)
+
+
+def pay9_business_phase4(agent):
+    """PAY9 Phase 4 (business): Wait PaymentOrderCard → RoopaDCard cash 26 + tip 4
+    → paymentConfirm → event invoice + individual invoice (RoopaD) → close table."""
+    print(f"[{agent.role}] [PAY9] Phase 4: B-App cash + tip + invoices + close")
+    agent.adb("shell", "input", "keyevent", "4")  # KEYCODE_BACK
+    time.sleep(2)
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -5647,14 +5660,13 @@ def pay9_business_flow(agent):
     time.sleep(3)
     _tap(agent, "RoopaDCard")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "593", "509", "539", "509", "344")
-    time.sleep(2)
-    agent.adb("shell", "input", "swipe", "593", "509", "539", "509", "344")
+    # Small scroll down to reveal cashPaymentBtn
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
     _tap(agent, "cashPaymentBtn")
     time.sleep(2)
-    _tap(agent, "Number2")
-    _tap(agent, "Number6")
+    _tap(agent, "Number4")
+    _tap(agent, "Number7")
     _tap(agent, "userInputBtn")
     time.sleep(2)
     _tap(agent, "tipBtn")
@@ -5667,10 +5679,12 @@ def pay9_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    # Print event invoice
+    # Print event invoice (PDF pattern)
     _tap(agent, "Assign/Split")
     time.sleep(3)
-    _tap(agent, "addItemsBtn")
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "eventInvoice")
     time.sleep(3)
@@ -5681,7 +5695,7 @@ def pay9_business_flow(agent):
     _tap(agent, "backButton")
     time.sleep(3)
     # Print individual invoice for RoopaD
-    _tap(agent, "addItemsBtn")
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "individualInvoice")
     time.sleep(3)
@@ -5696,17 +5710,21 @@ def pay9_business_flow(agent):
     # Close table
     _tap(agent, "Overview")
     time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
     _tap(agent, "closeTableBtn")
     time.sleep(3)
     scenario_reporter.add_result("PAY9", "Invitee Pays for 1 Guest (C-App) + Remaining via B-App",
                                  agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay10_consumer_flow(agent):
-    """PAY10 Consumer: Invitee Pays for Self (C-App) + Remaining via B-App with tip.
-    Noolu books with 1 guest + invites Roopa. Roopa accepts, then pays NooluNaga's
-    portion via 6% OFFER ePayment (€2.25 tip + €44.27 total)."""
-    print(f"[{agent.role}] [PAY10] Invitee Pays for Self (C-App) + tip")
+# PAY10 — split into 4 phases for strict sequential alternation.
+
+def pay10_consumer_phase1(agent):
+    """PAY10 Phase 1 (consumer): Noolu books + invites Roopa, switches to Roopa, accepts."""
+    print(f"[{agent.role}] [PAY10] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
@@ -5720,6 +5738,8 @@ def pay10_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "RoopaInvite")
     time.sleep(3)
+    _tap(agent, "Roopa")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -5727,53 +5747,21 @@ def pay10_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Roopa and accept invite
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NooluNagaInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "NooluNagaInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business to do its part, then C-App payment
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.swipe_up()
-    time.sleep(2)
-    _tap(agent, "RoopaDfinishedCard")
-    time.sleep(3)
-    # Pay NooluNaga with 6% OFFER coupon via ePayment
-    _tap(agent, "NooluNagapay")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "2.25")
-    time.sleep(2)
-    _tap(agent, "eApplyCoupons")
-    time.sleep(3)
-    _tap(agent, "6% OFFER")
-    time.sleep(3)
-    _tap(agent, "ePayment")
-    time.sleep(5)
-    _tap(agent, "Pay €", "Pay")
-    time.sleep(10)
-    scenario_reporter.add_result("PAY10", "Invitee Pays for Self (C-App) + Remaining via B-App with tip",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay10_business_flow(agent):
-    """PAY10 Business: Same items as PAY9, then Guest1Card cash 25 + tip 2.
-    Print event + individual invoices, close table."""
-    print(f"[{agent.role}] [PAY10] Process invitee-pays-for-self order")
+def pay10_business_phase2(agent):
+    """PAY10 Phase 2 (business): Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY10] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -5790,18 +5778,20 @@ def pay10_business_flow(agent):
     time.sleep(5)
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal PizzaProsciuttoeFunghi
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -5820,7 +5810,6 @@ def pay10_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -5831,7 +5820,6 @@ def pay10_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -5848,7 +5836,51 @@ def pay10_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer C-App payment (poll for PaymentOrderCard)
+
+
+def pay10_consumer_phase3(agent):
+    """PAY10 Phase 3 (consumer): walletTab → NylaiKitchenCard → swipe → RoopaDfinishedCard
+    → NooluNagapay → proceedPayment → tip €2.25 → 6% OFFER coupon → ePayment → primary_button.
+    Pays for NooluNaga's portion (partial payment)."""
+    print(f"[{agent.role}] [PAY10] Phase 3: Pay NooluNaga with 6% OFFER")
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout")
+    time.sleep(3)
+    _tap(agent, "NooluNagapay")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "2.25")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "eApplyCoupons")
+    time.sleep(3)
+    _tap(agent, "6% OFFER")
+    time.sleep(3)
+    _tap(agent, "ePayment")
+    time.sleep(30)
+    _tap(agent, "primary_button")
+    time.sleep(30)
+
+
+def pay10_business_phase4(agent):
+    """PAY10 Phase 4 (business): Wait PaymentOrderCard → Guest1Card cash 25 + tip 2
+    → paymentConfirm → event invoice + individual invoice (RoopaD) → close table."""
+    print(f"[{agent.role}] [PAY10] Phase 4: B-App cash + tip + invoices + close")
+    agent.adb("shell", "input", "keyevent", "4")  # KEYCODE_BACK
+    time.sleep(2)
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -5857,14 +5889,13 @@ def pay10_business_flow(agent):
     time.sleep(3)
     _tap(agent, "Guest1Card")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "593", "509", "539", "509", "344")
-    time.sleep(2)
-    agent.adb("shell", "input", "swipe", "593", "509", "539", "509", "344")
+    # Small scroll down to reveal cashPaymentBtn
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
     _tap(agent, "cashPaymentBtn")
     time.sleep(2)
-    _tap(agent, "Number2")
-    _tap(agent, "Number5")
+    _tap(agent, "Number6")
+    _tap(agent, "Number6")
     _tap(agent, "userInputBtn")
     time.sleep(2)
     _tap(agent, "tipBtn")
@@ -5877,10 +5908,12 @@ def pay10_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    # Print event invoice
+    # Print event invoice (PDF pattern)
     _tap(agent, "Assign/Split")
     time.sleep(3)
-    _tap(agent, "addItemsBtn")
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "eventInvoice")
     time.sleep(3)
@@ -5891,7 +5924,7 @@ def pay10_business_flow(agent):
     _tap(agent, "backButton")
     time.sleep(3)
     # Print individual invoice for RoopaD
-    _tap(agent, "addItemsBtn")
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "individualInvoice")
     time.sleep(3)
@@ -5906,17 +5939,21 @@ def pay10_business_flow(agent):
     # Close table
     _tap(agent, "Overview")
     time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
     _tap(agent, "closeTableBtn")
     time.sleep(3)
     scenario_reporter.add_result("PAY10", "Invitee Pays for Self (C-App) + Remaining via B-App with tip",
                                  agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay11_consumer_flow(agent):
-    """PAY11 Consumer: Invitee Pays for Self (Bonus Savings) + Remaining via B-App.
-    Roopa books + invites Noolu. Noolu accepts, taps Mepay, applies Bonus savings
-    coupon, pays via ePayment (€2.25 tip + €23.26 total)."""
-    print(f"[{agent.role}] [PAY11] Invitee Pays for Self (Bonus Savings)")
+# PAY11 — split into 4 phases for strict sequential alternation.
+
+def pay11_consumer_phase1(agent):
+    """PAY11 Phase 1 (consumer): Roopa books + invites Noolu, switches to Noolu, accepts."""
+    print(f"[{agent.role}] [PAY11] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
@@ -5930,6 +5967,8 @@ def pay11_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "NooluInvite")
     time.sleep(3)
+    _tap(agent, "Noolu")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -5937,53 +5976,21 @@ def pay11_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Noolu and accept invite
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "RoopaDInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "RoopaDInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business to send + serve, then C-App payment
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.swipe_up()
-    time.sleep(2)
-    _tap(agent, "RoopaDfinishedCard")
-    time.sleep(3)
-    # Pay self with Bonus savings coupon via ePayment
-    _tap(agent, "Mepay")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "2.25")
-    time.sleep(2)
-    _tap(agent, "eApplyCoupons")
-    time.sleep(3)
-    _tap(agent, "Bonus savings")
-    time.sleep(3)
-    _tap(agent, "ePayment")
-    time.sleep(5)
-    _tap(agent, "Pay €", "Pay")
-    time.sleep(10)
-    scenario_reporter.add_result("PAY11", "Invitee Pays for Self (Bonus Savings) + Remaining via B-App",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay11_business_flow(agent):
-    """PAY11 Business: Same items as PAY9. Then RoopaDCard cash 49 + Guest1select Apply.
-    Print individual invoice for NooluNaga, close table."""
-    print(f"[{agent.role}] [PAY11] Process invitee-pays-bonus-savings order")
+def pay11_business_phase2(agent):
+    """PAY11 Phase 2 (business): Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY11] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6000,18 +6007,20 @@ def pay11_business_flow(agent):
     time.sleep(5)
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal PizzaProsciuttoeFunghi
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -6030,7 +6039,6 @@ def pay11_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -6041,7 +6049,6 @@ def pay11_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6058,7 +6065,51 @@ def pay11_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer C-App payment (poll for PaymentOrderCard)
+
+
+def pay11_consumer_phase3(agent):
+    """PAY11 Phase 3 (consumer): walletTab → NylaiKitchenCard → swipe → RoopaDfinishedCard
+    → Mepay → proceedPayment → tip €2.25 → Bonus savings coupon → ePayment → primary_button.
+    Pays for own portion (partial — Bonus savings coupon)."""
+    print(f"[{agent.role}] [PAY11] Phase 3: Pay self with Bonus savings")
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout")
+    time.sleep(3)
+    _tap(agent, "Mepay")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "2.25")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "eApplyCoupons")
+    time.sleep(3)
+    _tap(agent, "Bonus savings")
+    time.sleep(3)
+    _tap(agent, "ePayment")
+    time.sleep(30)
+    _tap(agent, "primary_button")
+    time.sleep(30)
+
+
+def pay11_business_phase4(agent):
+    """PAY11 Phase 4 (business): Wait PaymentOrderCard → RoopaDCard cash 49 + Guest1select Apply
+    → paymentConfirm → individual invoice for NooluNaga (no event invoice) → close table."""
+    print(f"[{agent.role}] [PAY11] Phase 4: B-App cash + invoice + close")
+    agent.adb("shell", "input", "keyevent", "4")  # KEYCODE_BACK
+    time.sleep(2)
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -6067,13 +6118,18 @@ def pay11_business_flow(agent):
     time.sleep(3)
     _tap(agent, "RoopaDCard")
     time.sleep(3)
+    # Small scroll down to reveal cashPaymentBtn
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "cashPaymentBtn")
     time.sleep(2)
-    _tap(agent, "Number4")
-    _tap(agent, "Number9")
+    _tap(agent, "Number6")
+    _tap(agent, "Number5")
     _tap(agent, "userInputBtn")
     time.sleep(2)
     _tap(agent, "Guest1select")
+    time.sleep(2)
+    _tap(agent, "NooluNagaselect")
     time.sleep(2)
     _tap(agent, "Apply")
     time.sleep(2)
@@ -6082,10 +6138,12 @@ def pay11_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    # Print individual invoice for NooluNaga
+    # Print individual invoice for NooluNaga (PDF pattern — PAY11 only does individual, no event)
     _tap(agent, "Assign/Split")
     time.sleep(3)
-    _tap(agent, "addItemsBtn")
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "individualInvoice")
     time.sleep(3)
@@ -6098,6 +6156,10 @@ def pay11_business_flow(agent):
     _tap(agent, "backButton")
     time.sleep(3)
     # Close table
+    _tap(agent, "Overview")
+    time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
     _tap(agent, "Overview")
     time.sleep(5)
     _tap(agent, "closeTableBtn")
@@ -6141,9 +6203,6 @@ def pay12_consumer_phase1(agent):
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "RoopaDInviteCard", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "RoopaDInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
@@ -6169,18 +6228,20 @@ def pay12_business_phase2(agent):
     time.sleep(5)
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto (no category tap needed)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal next item
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -6232,10 +6293,12 @@ def pay12_consumer_phase3(agent):
     pay-for-all radio → proceed with payment → primary_button → 30s wait
     → ePayment €2.25 → Pay."""
     print(f"[{agent.role}] [PAY12] Phase 3: checkout + payTotal + ePayment")
+    _tap(agent, "homeTab")
+    time.sleep(30)
     _tap(agent, "walletTab")
-    time.sleep(5)
-    # _wait_for_card finds AND taps the NylaiKitchenCard PAYMENT REQUESTED card
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
+    time.sleep(30)
+    # Tap the first NylaiKitchenCard (no wait, just tap)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
     time.sleep(3)
     # Scroll down the order detail page to reveal Checkout button
     agent.swipe_up()
@@ -6248,11 +6311,18 @@ def pay12_consumer_phase3(agent):
     # Proceed with payment — wait 30s for the payment screen to load
     _tap(agent, "proceedPayment")
     time.sleep(30)
-    # Type tip amount + select ePayment method
-    _type_field(agent, "0,00 €", "2.25")
+    # Tap tipBtn, type 2.25, press Enter
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "2.25")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")  # KEYCODE_ENTER
+    time.sleep(2)
+    # Scroll up to reveal the payment-method buttons (E-Payment / Cash / Food Voucher)
+    agent.swipe_down()
     time.sleep(2)
     _tap(agent, "ePayment")
-    time.sleep(5)
+    time.sleep(30)
     # Primary action button (confirm / pay) — payment processing takes ~30s
     _tap(agent, "primary_button")
     time.sleep(30)
@@ -6300,12 +6370,11 @@ def rev1_consumer_flow(agent):
     PizzaProsciuttoeFunghi 4, comment 'the ambience is good!'."""
     print(f"[{agent.role}] [REV1] Only Host Gives Review")
     agent.launch_app()
+    _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NylaiKitchenCard PAYMENT COMPLETED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT COMPLETED")
     time.sleep(5)
     agent.swipe_up()
     time.sleep(2)
@@ -6348,11 +6417,11 @@ def rev1_business_flow(agent):
     _no_op(agent)
 
 
-def pay13_consumer_flow(agent):
-    """PAY13 Consumer: Cash Payment in C-App.
-    Noolu books + invites Roopa. Roopa accepts, then taps payTotal and pays via
-    eCash + ePaymentConfirm + waiterNotify (€1.11)."""
-    print(f"[{agent.role}] [PAY13] Cash Payment in C-App")
+# PAY13 — split into 4 phases for strict sequential alternation.
+
+def pay13_consumer_phase1(agent):
+    """PAY13 Phase 1 (consumer): Noolu books + invites Roopa, switches to Roopa, accepts."""
+    print(f"[{agent.role}] [PAY13] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
@@ -6366,6 +6435,8 @@ def pay13_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "RoopaInvite")
     time.sleep(3)
+    _tap(agent, "Roopa")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -6373,49 +6444,21 @@ def pay13_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Roopa and accept
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NooluNagaInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "NooluNagaInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business serve, then C-App eCash payment
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.swipe_up()
-    time.sleep(2)
-    _tap(agent, "payTotal")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "1.11")
-    time.sleep(2)
-    _tap(agent, "eCash")
-    time.sleep(5)
-    _tap(agent, "ePaymentConfirm")
-    time.sleep(5)
-    _tap(agent, "waiterNotify")
-    time.sleep(5)
-    scenario_reporter.add_result("PAY13", "Cash Payment in C-App",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay13_business_flow(agent):
-    """PAY13 Business: Assign + Chicken65 + Macaroni&CheeseBake.
-    After consumer eCash, RoopaDCard cashPayment 99 covering Guest1 + NooluNaga.
-    Print individual invoice for Roopa, close table."""
-    print(f"[{agent.role}] [PAY13] Process C-App cash + B-App cash for guests")
+def pay13_business_phase2(agent):
+    """PAY13 Phase 2 (business): Assign + Chicken65 + Macaroni&CheeseBake + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY13] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6439,10 +6482,11 @@ def pay13_business_flow(agent):
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "539", "1615", "521", "1518", "390")
+    # Two small scrolls down to reveal Macaroni&CheeseBake (no category tap needed)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Macaroni&CheeseBakeItem")
     time.sleep(2)
     _tap(agent, "largeBtn")
@@ -6463,7 +6507,6 @@ def pay13_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -6474,7 +6517,6 @@ def pay13_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6491,7 +6533,44 @@ def pay13_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer eCash + waiterNotify (poll for PaymentOrderCard)
+
+
+def pay13_consumer_phase3(agent):
+    """PAY13 Phase 3 (consumer): NylaiKitchenCard → checkout → payTotal → proceed → tip €1.11 → eCash → waiterNotify."""
+    print(f"[{agent.role}] [PAY13] Phase 3: checkout + eCash")
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout", "Checkout", "checkout")
+    time.sleep(5)
+    _tap(agent, "payTotal")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "1.11")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "eCash")
+    time.sleep(30)
+    _tap(agent, "ePaymentConfirm")
+    time.sleep(30)
+    _tap(agent, "waiterNotify")
+    time.sleep(5)
+
+
+def pay13_business_phase4(agent):
+    """PAY13 Phase 4 (business): Wait for PaymentOrderCard → cash 99 covering Guest1+NooluNaga → invoice → close."""
+    print(f"[{agent.role}] [PAY13] Phase 4: B-App cash + invoice + close")
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -6500,6 +6579,9 @@ def pay13_business_flow(agent):
     time.sleep(3)
     _tap(agent, "RoopaDCard")
     time.sleep(3)
+    # Small scroll down to reveal the cashPaymentBtn area
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "cashPaymentBtn")
     time.sleep(2)
     _tap(agent, "Number9")
@@ -6517,10 +6599,12 @@ def pay13_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    # Print individual invoice for RoopaD
+    # Print individual invoice for RoopaD (PDF pattern)
     _tap(agent, "Assign/Split")
     time.sleep(3)
-    _tap(agent, "addItemsBtn")
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "individualInvoice")
     time.sleep(3)
@@ -6535,6 +6619,10 @@ def pay13_business_flow(agent):
     # Close table
     _tap(agent, "Overview")
     time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
     _tap(agent, "closeTableBtn")
     time.sleep(3)
     scenario_reporter.add_result("PAY13", "Cash Payment in C-App",
@@ -6543,15 +6631,15 @@ def pay13_business_flow(agent):
 
 def rev2_consumer_flow(agent):
     """REV2 Consumer: Only Invitee Gives Review after event completion.
-    Stars: overall 5, Food 4, comment via swipe + submitReview."""
+    Stars: overall 5, Food 4, comment via swipe + submitReview.
+    Invitee is Roopa (after PAY13 Cash Payment scenario)."""
     print(f"[{agent.role}] [REV2] Only Invitee Gives Review")
     agent.launch_app()
+    _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NylaiKitchenCard PAYMENT COMPLETED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT COMPLETED")
     time.sleep(5)
     agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
     time.sleep(2)
@@ -6579,12 +6667,12 @@ def rev2_business_flow(agent):
     _no_op(agent)
 
 
-def pay14_consumer_flow(agent):
-    """PAY14 Consumer: Food Voucher with Remind Payment + Re-Checkout flow.
-    Roopa books + invites Noolu. Noolu accepts, taps payTotal+proceedPayment
-    (initial attempt), then business reminds, Noolu re-enters with €5.123 and
-    pays via eFoodVoucher + ePaymentConfirm + waiterNotify."""
-    print(f"[{agent.role}] [PAY14] Food Voucher + Remind Payment + Re-Checkout")
+# PAY14 — split into 6 phases for strict sequential alternation
+# (special: has remind+re-checkout flow that needs 3 consumer/business alternations)
+
+def pay14_consumer_phase1(agent):
+    """PAY14 Phase 1 (consumer): Roopa books + invites Noolu, switches to Noolu, accepts."""
+    print(f"[{agent.role}] [PAY14] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
@@ -6598,6 +6686,8 @@ def pay14_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "NooluInvite")
     time.sleep(3)
+    _tap(agent, "Noolu")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -6605,61 +6695,21 @@ def pay14_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Noolu and accept
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "RoopaDInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "RoopaDInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business serve, then start initial payment (gets reminded)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
-    time.sleep(2)
-    _tap(agent, "payTotal")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(10)
-    # Wait for business to send remind, then come back for re-checkout
-    time.sleep(20)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    _tap(agent, "payTotal")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "5.123")
-    time.sleep(2)
-    _tap(agent, "eFoodVoucher")
-    time.sleep(5)
-    _tap(agent, "ePaymentConfirm")
-    time.sleep(5)
-    _tap(agent, "waiterNotify")
-    time.sleep(5)
-    scenario_reporter.add_result("PAY14", "Food Voucher + Remind Payment + Re-Checkout",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay14_business_flow(agent):
-    """PAY14 Business: Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi.
-    After serve, send remindPayment. After consumer re-checkouts, NooluNagaCard
-    foodVoucher + epayment 80. Print individual invoice for RoopaD."""
-    print(f"[{agent.role}] [PAY14] Process food voucher + remind payment")
+def pay14_business_phase2(agent):
+    """PAY14 Phase 2 (business): Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY14] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6676,18 +6726,20 @@ def pay14_business_flow(agent):
     time.sleep(5)
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto (no category tap needed)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal PizzaProsciuttoeFunghi
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -6706,7 +6758,6 @@ def pay14_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -6717,7 +6768,6 @@ def pay14_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6734,7 +6784,33 @@ def pay14_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer to start initial payment (poll for PaymentOrderCard)
+
+
+def pay14_consumer_phase3a(agent):
+    """PAY14 Phase 3a (consumer): Initial payment attempt. Reaches the ePayTip
+    prompt and stops — business will interrupt with remindPayment."""
+    print(f"[{agent.role}] [PAY14] Phase 3a: Initial payment attempt")
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout", "Checkout", "checkout")
+    time.sleep(5)
+    _tap(agent, "payTotal")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+
+
+def pay14_business_phase4a(agent):
+    """PAY14 Phase 4a (business): Send remindPayment to interrupt consumer's payment."""
+    print(f"[{agent.role}] [PAY14] Phase 4a: Send remindPayment")
+    agent.adb("shell", "input", "keyevent", "4")  # KEYCODE_BACK
+    time.sleep(2)
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -6745,7 +6821,31 @@ def pay14_business_flow(agent):
     time.sleep(5)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Wait for consumer to do re-checkout via food voucher + waiterNotify
+
+
+def pay14_consumer_phase3b(agent):
+    """PAY14 Phase 3b (consumer): Re-checkout with eFoodVoucher €5.123 → ePaymentConfirm → waiterNotify."""
+    print(f"[{agent.role}] [PAY14] Phase 3b: Re-checkout with food voucher")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "5.123")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "eFoodVoucher")
+    time.sleep(30)
+    _tap(agent, "ePaymentConfirm")
+    time.sleep(30)
+    _tap(agent, "waiterNotify")
+    time.sleep(5)
+
+
+def pay14_business_phase4b(agent):
+    """PAY14 Phase 4b (business): NooluNagaCard foodVoucher + epay 80 + paymentConfirm + invoice + close."""
+    print(f"[{agent.role}] [PAY14] Phase 4b: B-App food voucher + epay + invoice + close")
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentOrderCard", max_attempts=24)
@@ -6754,6 +6854,9 @@ def pay14_business_flow(agent):
     time.sleep(3)
     _tap(agent, "NooluNagaCard")
     time.sleep(3)
+    # Small scroll down to reveal foodVoucherBtn area
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "foodVoucherBtn")
     time.sleep(2)
     _tap(agent, "foodVoucher10CounterIncrement")
@@ -6771,10 +6874,27 @@ def pay14_business_flow(agent):
     _tap(agent, "paymentConfirmBtn")
     time.sleep(20)
     agent.verify_final_bill()
-    # Print individual invoice for RoopaD
+    # Scroll up to find Roopa's card, tap it, small scroll down, then epayment 45
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "RoopaDCard")
+    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
+    _tap(agent, "epaymentBtn")
+    time.sleep(2)
+    _tap(agent, "Number4")
+    _tap(agent, "Number5")
+    _tap(agent, "userInputBtn")
+    time.sleep(30)
+    agent.verify_final_bill()
+    time.sleep(15)
+    # Print individual invoice for RoopaD (PDF pattern)
     _tap(agent, "Assign/Split")
     time.sleep(3)
-    _tap(agent, "addItemsBtn")
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "pdfGenerateBtn", "assignSplitBtn", "generatePdfBtn")
     time.sleep(3)
     _tap(agent, "individualInvoice")
     time.sleep(3)
@@ -6789,6 +6909,10 @@ def pay14_business_flow(agent):
     # Close table
     _tap(agent, "Overview")
     time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
+    _tap(agent, "Overview")
+    time.sleep(5)
     _tap(agent, "closeTableBtn")
     time.sleep(3)
     scenario_reporter.add_result("PAY14", "Food Voucher + Remind Payment + Re-Checkout",
@@ -6797,17 +6921,16 @@ def pay14_business_flow(agent):
 
 def rev3_consumer_flow(agent):
     """REV3 Consumer: Host and Participant Both Give Review.
-    First Noolu (current user) reviews. Then logout, login as Roopa for
+    First Noolu (invitee in PAY14) reviews. Then switches to Roopa (host) for
     second review."""
     print(f"[{agent.role}] [REV3] Host and Participant Both Review")
     agent.launch_app()
+    _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
-    # First review (Noolu)
+    # First review (Noolu — invitee)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NylaiKitchenCard PAYMENT COMPLETED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT COMPLETED")
     time.sleep(5)
     agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
     time.sleep(2)
@@ -6837,8 +6960,6 @@ def rev3_consumer_flow(agent):
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NylaiKitchenCard PAYMENT COMPLETED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT COMPLETED")
     time.sleep(5)
     agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
     time.sleep(2)
@@ -6866,12 +6987,12 @@ def rev3_business_flow(agent):
     _no_op(agent)
 
 
-def pay15_consumer_flow(agent):
-    """PAY15 Consumer: Participant Pays for Others — whom-to-pay check.
-    Noolu books + invites Roopa. Roopa accepts. Then various account switches
-    to verify whom-do-you-like-to-pay flows. Final payment by Roopa via
-    payTotal + ePayment €2.25 (€65.28)."""
-    print(f"[{agent.role}] [PAY15] Participant Pays for Others - whom to pay")
+# PAY15 — split into 4 phases for strict sequential alternation.
+# Phase 3 has 4 sub-actions (Noolu→Roopa→Noolu→Roopa whom-to-pay flow) all on consumer side.
+
+def pay15_consumer_phase1(agent):
+    """PAY15 Phase 1 (consumer): Noolu books + invites Roopa, switches to Roopa, accepts."""
+    print(f"[{agent.role}] [PAY15] Phase 1: Book + invite + accept")
     agent.launch_app()
     _switch_account(agent, "noolu@xorstack.com", "12345")
     time.sleep(3)
@@ -6885,6 +7006,8 @@ def pay15_consumer_flow(agent):
     time.sleep(2)
     _tap(agent, "RoopaInvite")
     time.sleep(3)
+    _tap(agent, "Roopa")
+    time.sleep(3)
     _tap(agent, "inviteUsers")
     time.sleep(3)
     _tap_chip_container(agent)
@@ -6892,96 +7015,21 @@ def pay15_consumer_flow(agent):
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Switch to Roopa and accept invite from NooluNaga
     _switch_account(agent, "roopa@xorstack.com", "12345")
     time.sleep(3)
     _tap(agent, "walletTab")
     time.sleep(5)
     _wait_for_card(agent, "NooluNagaInviteCard", max_attempts=10)
     time.sleep(3)
-    _tap(agent, "NooluNagaInviteCard")
-    time.sleep(3)
     _tap(agent, "eventAccept")
     time.sleep(3)
     _tap(agent, "orderLater")
     time.sleep(5)
-    # Wait for business serve
-    # First check: switch to Noolu, tap payTotal+proceedPayment, then walletBackBtn
-    _switch_account(agent, "noolu@xorstack.com", "12345")
-    time.sleep(3)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=20)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
-    time.sleep(2)
-    _tap(agent, "payTotal")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _tap(agent, "walletBackBtn")
-    time.sleep(3)
-    # Switch to Roopa, check her payment screen
-    _switch_account(agent, "roopa@xorstack.com", "12345")
-    time.sleep(3)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
-    time.sleep(2)
-    # Switch to Noolu again — re-checkout via "YES, RE-CHECKOUT" + Mepay
-    _switch_account(agent, "noolu@xorstack.com", "12345")
-    time.sleep(3)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
-    time.sleep(2)
-    _tap(agent, "YES, RE-CHECKOUT", "RE-CHECKOUT")
-    time.sleep(5)
-    _tap(agent, "Mepay")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _tap(agent, "walletBackBtn")
-    time.sleep(3)
-    # Final: switch to Roopa, do payTotal + ePayment
-    _switch_account(agent, "roopa@xorstack.com", "12345")
-    time.sleep(3)
-    _tap(agent, "walletTab")
-    time.sleep(5)
-    _wait_for_card(agent, "NylaiKitchenCard PAYMENT REQUESTED", max_attempts=10)
-    time.sleep(3)
-    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED")
-    time.sleep(5)
-    agent.adb("shell", "input", "swipe", "363", "996", "360", "672", "168")
-    time.sleep(2)
-    _tap(agent, "payTotal")
-    time.sleep(3)
-    _tap(agent, "proceedPayment")
-    time.sleep(5)
-    _type_field(agent, "0,00 €", "2.25")
-    time.sleep(2)
-    _tap(agent, "ePayment")
-    time.sleep(5)
-    _tap(agent, "Pay €", "Pay")
-    time.sleep(15)
-    scenario_reporter.add_result("PAY15", "Participant Pays for Others - whom to pay (C-App)",
-                                 agent.role, "PASS", "Completed", agent.last_launch_time)
 
 
-def pay15_business_flow(agent):
-    """PAY15 Business: Same setup as PAY12, then PaymentDoneOrderCard close after
-    Roopa's ePayment."""
-    print(f"[{agent.role}] [PAY15] Process participant-pays-for-others order")
+def pay15_business_phase2(agent):
+    """PAY15 Phase 2 (business): Assign + Three-CheeseRisotto + PizzaProsciuttoeFunghi + kitchen + serve + notifyPayment."""
+    print(f"[{agent.role}] [PAY15] Phase 2: Assign + items + kitchen + serve")
     agent.launch_app()
     time.sleep(10)
     _tap(agent, "Orders")
@@ -6998,18 +7046,20 @@ def pay15_business_flow(agent):
     time.sleep(5)
     _tap(agent, "addItemsBtn")
     time.sleep(3)
-    agent.adb("shell", "input", "swipe", "854", "518", "496", "490", "418")
+    # Two small scrolls down to reveal Three-CheeseRisotto
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
     time.sleep(2)
-    _tap(agent, "Cheesy & Comfort PlatesBtn")
-    time.sleep(3)
+    agent.adb("shell", "input", "swipe", "360", "1000", "360", "850", "300")
+    time.sleep(2)
     _tap(agent, "Three-CheeseRisottoItem")
     time.sleep(2)
     _tap(agent, "smallBtn")
     time.sleep(2)
     _tap(agent, "applyOptionBtn")
     time.sleep(3)
-    _tap(agent, "Pasta & PizzaBtn")
-    time.sleep(3)
+    # Small scroll up to reveal PizzaProsciuttoeFunghi
+    agent.adb("shell", "input", "swipe", "360", "850", "360", "1000", "300")
+    time.sleep(2)
     _tap(agent, "PizzaProsciuttoeFunghiItem")
     time.sleep(2)
     _tap(agent, "SpicysalamiBtn")
@@ -7028,7 +7078,6 @@ def pay15_business_flow(agent):
     time.sleep(10)
     _tap(agent, "backButton")
     time.sleep(3)
-    # Kitchen
     _switch_biz_account(agent, "kempA@xorstack.com", "Nylaii@09")
     time.sleep(5)
     _tap(agent, "inProgressOrderCard")
@@ -7039,7 +7088,6 @@ def pay15_business_flow(agent):
     time.sleep(3)
     _tap(agent, "orderCloseBtn")
     time.sleep(3)
-    # Serve
     _switch_biz_account(agent, "empA@xorstack.com", "Nylaii@06")
     time.sleep(10)
     _tap(agent, "Orders")
@@ -7056,7 +7104,99 @@ def pay15_business_flow(agent):
     time.sleep(3)
     _tap(agent, "notifyPaymentBtn")
     time.sleep(3)
-    # Wait for consumer whom-to-pay flow + final ePayment (poll for PaymentDoneOrderCard)
+
+
+def pay15_consumer_phase3(agent):
+    """PAY15 Phase 3 (consumer): Whom-to-pay flow + final ePayment.
+    4 sub-actions all on consumer side:
+      1. Noolu starts payment → walletBackBtn (cancels)
+      2. Roopa checks her screen
+      3. Noolu re-checkout → Mepay → walletBackBtn (cancels)
+      4. Roopa final ePayment €2.25
+    """
+    print(f"[{agent.role}] [PAY15] Phase 3: Whom-to-pay flow + final ePayment")
+    # ── Sub-action 1: Noolu starts payment, then walletBackBtn (cancel) ──
+    _switch_account(agent, "noolu@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "homeTab")
+    time.sleep(30)
+    _tap(agent, "walletTab")
+    time.sleep(30)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout", "Checkout", "checkout")
+    time.sleep(5)
+    _tap(agent, "payTotal")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "walletBackBtn")
+    time.sleep(3)
+    # ── Sub-action 2: Roopa checks her payment screen ──
+    _switch_account(agent, "roopa@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    # ── Sub-action 3: Noolu re-checkout via YES, RE-CHECKOUT + Mepay → walletBackBtn ──
+    _switch_account(agent, "noolu@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout", "Checkout", "checkout")
+    time.sleep(5)
+    _tap(agent, "YES, RE-CHECKOUT", "RE-CHECKOUT")
+    time.sleep(5)
+    _tap(agent, "Mepay")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "walletBackBtn")
+    time.sleep(3)
+    # ── Sub-action 4: Roopa final ePayment €2.25 ──
+    _switch_account(agent, "roopa@xorstack.com", "12345")
+    time.sleep(3)
+    _tap(agent, "walletTab")
+    time.sleep(5)
+    _tap(agent, "NylaiKitchenCard PAYMENT REQUESTED", "NylaiKitchenCard")
+    time.sleep(3)
+    agent.swipe_up()
+    time.sleep(2)
+    _tap(agent, "cartCheckout", "Checkout", "checkout")
+    time.sleep(5)
+    _tap(agent, "payTotal")
+    time.sleep(3)
+    _tap(agent, "proceedPayment")
+    time.sleep(30)
+    _tap(agent, "tipBtn")
+    time.sleep(2)
+    agent.adb("shell", "input", "text", "2.25")
+    time.sleep(1)
+    agent.adb("shell", "input", "keyevent", "66")
+    time.sleep(2)
+    agent.swipe_down()
+    time.sleep(2)
+    _tap(agent, "ePayment")
+    time.sleep(30)
+    _tap(agent, "primary_button")
+    time.sleep(30)
+
+
+def pay15_business_phase4(agent):
+    """PAY15 Phase 4 (business): Wait for PaymentDoneOrderCard, close table.
+    PAY15 test design has no invoice — just close."""
+    print(f"[{agent.role}] [PAY15] Phase 4: Close table")
+    agent.adb("shell", "input", "keyevent", "4")  # KEYCODE_BACK
+    time.sleep(2)
     _tap(agent, "Orders")
     time.sleep(5)
     _wait_for_card(agent, "PaymentDoneOrderCard", max_attempts=36)
@@ -9930,9 +10070,42 @@ SCENARIO_MAP = {
     "PAY6": {"name": "Participant Pays for Others",                    "consumer": pay6_consumer_flow, "business": pay6_business_flow},
     "PAY7": {"name": "Guest Pays for Others",                          "consumer": pay7_consumer_flow, "business": pay7_business_flow},
     "PAY8": {"name": "5 Users Ordering More Items",                    "consumer": pay8_consumer_flow, "business": pay8_business_flow},
-    "PAY9": {"name": "Invitee Pays for 1 Guest (C-App) + Remaining via B-App",  "consumer": pay9_consumer_flow,  "business": pay9_business_flow,  "order": "parallel"},
-    "PAY10": {"name": "Invitee Pays for Self (C-App) + Remaining via B-App",    "consumer": pay10_consumer_flow, "business": pay10_business_flow, "order": "parallel"},
-    "PAY11": {"name": "Invitee Pays for Self (Bonus Savings) + Remaining B-App","consumer": pay11_consumer_flow, "business": pay11_business_flow, "order": "parallel"},
+    "PAY9": {
+        "name": "Invitee Pays for 1 Guest (C-App) + Remaining via B-App",
+        "consumer": pay9_consumer_phase1,
+        "business": pay9_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay9_consumer_phase1),
+            ("business", pay9_business_phase2),
+            ("consumer", pay9_consumer_phase3),
+            ("business", pay9_business_phase4),
+        ],
+    },
+    "PAY10": {
+        "name": "Invitee Pays for Self (C-App) + Remaining via B-App",
+        "consumer": pay10_consumer_phase1,
+        "business": pay10_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay10_consumer_phase1),
+            ("business", pay10_business_phase2),
+            ("consumer", pay10_consumer_phase3),
+            ("business", pay10_business_phase4),
+        ],
+    },
+    "PAY11": {
+        "name": "Invitee Pays for Self (Bonus Savings) + Remaining B-App",
+        "consumer": pay11_consumer_phase1,
+        "business": pay11_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay11_consumer_phase1),
+            ("business", pay11_business_phase2),
+            ("consumer", pay11_consumer_phase3),
+            ("business", pay11_business_phase4),
+        ],
+    },
     "PAY12": {
         "name": "Host Pays for All (C-App E-Payment)",
         "consumer": pay12_consumer_phase1,
@@ -9945,9 +10118,44 @@ SCENARIO_MAP = {
             ("business", pay12_business_phase4),
         ],
     },
-    "PAY13": {"name": "Cash Payment in C-App",                                 "consumer": pay13_consumer_flow, "business": pay13_business_flow, "order": "parallel"},
-    "PAY14": {"name": "Food Voucher + Remind Payment + Re-Checkout",           "consumer": pay14_consumer_flow, "business": pay14_business_flow, "order": "parallel"},
-    "PAY15": {"name": "Participant Pays for Others - whom to pay (C-App)",     "consumer": pay15_consumer_flow, "business": pay15_business_flow, "order": "parallel"},
+    "PAY13": {
+        "name": "Cash Payment in C-App",
+        "consumer": pay13_consumer_phase1,
+        "business": pay13_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay13_consumer_phase1),
+            ("business", pay13_business_phase2),
+            ("consumer", pay13_consumer_phase3),
+            ("business", pay13_business_phase4),
+        ],
+    },
+    "PAY14": {
+        "name": "Food Voucher + Remind Payment + Re-Checkout",
+        "consumer": pay14_consumer_phase1,
+        "business": pay14_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay14_consumer_phase1),
+            ("business", pay14_business_phase2),
+            ("consumer", pay14_consumer_phase3a),
+            ("business", pay14_business_phase4a),
+            ("consumer", pay14_consumer_phase3b),
+            ("business", pay14_business_phase4b),
+        ],
+    },
+    "PAY15": {
+        "name": "Participant Pays for Others - whom to pay (C-App)",
+        "consumer": pay15_consumer_phase1,
+        "business": pay15_business_phase2,
+        "order": "phased",
+        "phases": [
+            ("consumer", pay15_consumer_phase1),
+            ("business", pay15_business_phase2),
+            ("consumer", pay15_consumer_phase3),
+            ("business", pay15_business_phase4),
+        ],
+    },
     "REV1":  {"name": "Only Host Gives Review",                                "consumer": rev1_consumer_flow,  "business": rev1_business_flow},
     "REV2":  {"name": "Only Invitee Gives Review",                             "consumer": rev2_consumer_flow,  "business": rev2_business_flow},
     "REV3":  {"name": "Host and Participant Both Review",                      "consumer": rev3_consumer_flow,  "business": rev3_business_flow},

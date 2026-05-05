@@ -1187,6 +1187,26 @@ if __name__ == "__main__":
                 vya_payment_report.build_report()
             except Exception as _e:
                 print(f"[Vya Payment Report] Skipped on force-kill: {_e}")
+            try:
+                import vya_payments_report
+                vya_payments_report.build_report()
+            except Exception as _e:
+                print(f"[Vya Payments Report] Skipped on force-kill: {_e}")
+            try:
+                import vya_combined_payments_report
+                vya_combined_payments_report.build_report()
+            except Exception as _e:
+                print(f"[Vya Combined Payments Report] Skipped on force-kill: {_e}")
+            try:
+                import vya_capp_payments_report
+                vya_capp_payments_report.build_report()
+            except Exception as _e:
+                print(f"[Vya C-App Payments Report] Skipped on force-kill: {_e}")
+            try:
+                import vya_pdf_report
+                vya_pdf_report.build_report()
+            except Exception as _e:
+                print(f"[Vya PDF Report] Skipped on force-kill: {_e}")
             os._exit(1)
 
     signal.signal(signal.SIGINT, signal_handler)
@@ -1213,3 +1233,23 @@ if __name__ == "__main__":
             vya_payment_report.build_report()
         except Exception as _e:
             print(f"[Vya Payment Report] Could not auto-generate report: {_e}")
+        try:
+            import vya_payments_report
+            vya_payments_report.build_report()
+        except Exception as _e:
+            print(f"[Vya Payments Report] Could not auto-generate report: {_e}")
+        try:
+            import vya_combined_payments_report
+            vya_combined_payments_report.build_report()
+        except Exception as _e:
+            print(f"[Vya Combined Payments Report] Could not auto-generate report: {_e}")
+        try:
+            import vya_capp_payments_report
+            vya_capp_payments_report.build_report()
+        except Exception as _e:
+            print(f"[Vya C-App Payments Report] Could not auto-generate report: {_e}")
+        try:
+            import vya_pdf_report
+            vya_pdf_report.build_report()
+        except Exception as _e:
+            print(f"[Vya PDF Report] Could not auto-generate report: {_e}")

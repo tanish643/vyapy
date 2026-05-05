@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vya PDF Automation - Test Report</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      padding: 30px;
+      color: #333;
+    }
+    .card {
+      max-width: 1500px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    .header {
+      background: #1a202c;
+      color: #fff;
+      padding: 24px 32px;
+    }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header p  { font-size: 15px; opacity: .8; margin-top: 4px; }
+    .stats { display: flex; border-bottom: 2px solid #e2e8f0; }
+    .stat {
+      flex: 1; padding: 18px; text-align: center;
+      border-right: 1px solid #e2e8f0;
+    }
+    .stat:last-child { border-right: none; }
+    .stat .val { font-size: 28px; font-weight: 800; }
+    .stat .lbl { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: #f7fafc;
+      padding: 16px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      border-bottom: 2px solid #e2e8f0;
+      text-align: center;
+    }
+    thead th:first-child { text-align: left; }
+    td {
+      padding: 14px 20px;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    .td-name { font-weight: 500; color: #2d3748; }
+    .td-c { text-align: center; }
+    .td-bill {
+      padding: 16px 20px;
+      font-size: 15px;
+      line-height: 2.0;
+      text-align: center;
+      min-width: 500px;
+    }
+    .muted { color: #999; }
+    tr:hover td { background: #f7fafc; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>Vya PDF Automation</h1>
+      <p>Device: Android Phone &nbsp;&middot;&nbsp; Platform: Android</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="val">3</div>
+        <div class="lbl">Total</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#27ae60">0</div>
+        <div class="lbl">Passed</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#e74c3c">3</div>
+        <div class="lbl">Failed</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:#805ad5">0%</div>
+        <div class="lbl">Pass Rate</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Test Case</th>
+          <th>App</th>
+          <th>Status</th>
+          <th>PDF Validation</th>
+          <th>Failed At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#ffffff"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">PDF3. Generate PDF after Event Completion (Individual)<br><span style="color:#888;font-size:12px">Execution: 0.4s</span></td><td class="td-c" style="font-size:15px">Consumer + Business</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><div style="font-weight:700;color:#1a202c;margin:10px 0 4px 0;font-size:14px">Pre-Payment Bill Check</div><br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;284.70</td><td style="padding:4px 10px">&euro;284.70<br><span style="color:#e74c3c;font-size:11px">diff -39.58</span></td><td style="padding:4px 10px">&euro;39.86</td><td style="padding:4px 10px">&euro;0.28<br><span style="color:#e74c3c;font-size:11px">diff +39.58</span></td><td style="padding:4px 10px">&euro;284.98</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;15.00</td><td style="padding:4px 10px">&euro;15.00</td><td style="padding:4px 10px">&euro;0.45</td><td style="padding:4px 10px">&euro;0.45</td><td style="padding:4px 10px">&euro;15.45</td><td style="padding:4px 10px"><span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span></td></tr></table></td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top"><div style="text-align:left;line-height:1.8;font-size:13px;color:#c0392b"><div style="font-weight:700;color:#1a202c;margin-top:6px">Pre-Payment Bill Check</div><br><span style="color:#e74c3c">&#10007;</span> VAT 14.0% mismatch: expected &euro;39.86 &nbsp;|&nbsp; displayed &euro;0.28 &nbsp;|&nbsp; diff &euro;39.58</div></td></tr>
+        <tr style="background:#f8fafc"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">PDF2. Generate PDF for Entire Event<br><span style="color:#888;font-size:12px">Execution: 0.2s</span></td><td class="td-c" style="font-size:15px">Consumer + Business</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><div style="font-weight:700;color:#1a202c;margin:10px 0 4px 0;font-size:14px">Pre-Payment Bill Check</div><br><b>Items Total:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span> displayed &euro;284.98 &nbsp;|&nbsp; calculated &euro;46.35 &nbsp;|&nbsp; diff &euro;238.63</td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top"><div style="text-align:left;line-height:1.8;font-size:13px;color:#c0392b"><div style="font-weight:700;color:#1a202c;margin-top:6px">Pre-Payment Bill Check</div><br><span style="color:#e74c3c">&#10007;</span> Items sum mismatch: displayed &euro;284.98 &nbsp;|&nbsp; calculated &euro;46.35 &nbsp;|&nbsp; diff &euro;238.63</div></td></tr>
+        <tr style="background:#ffffff"><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;font-size:15px;font-weight:500;vertical-align:top;line-height:1.8">PDF1. Generate PDF - Individual Payment<br><span style="color:#888;font-size:12px">Execution: 0.3s</span></td><td class="td-c" style="font-size:15px">Consumer + Business</td><td class="td-c"><span style="background:#e74c3c;color:#fff;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px">FAILED</span></td><td class="td-bill"><div style="font-weight:700;color:#1a202c;margin:10px 0 4px 0;font-size:14px">Pre-Payment Bill Check</div><br><b>Total Breakdown:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span> calculated &euro;0.28 &nbsp;|&nbsp; displayed &euro;300.43 &nbsp;|&nbsp; diff &euro;300.15<hr style="border:0;border-top:1px dashed #cbd5e0;margin:10px 0"><div style="font-weight:700;color:#1a202c;margin:10px 0 4px 0;font-size:14px">Post-Payment Bill Check</div><br><b>VAT:</b> <span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span><br><table style="margin:6px auto;border-collapse:collapse;font-size:13px;text-align:right"><tr style="border-bottom:1px solid #ddd"><th style="text-align:left;padding:4px 10px">Rate</th><th style="padding:4px 10px">Calc Excl</th><th style="padding:4px 10px">Disp Excl</th><th style="padding:4px 10px">Calc VAT</th><th style="padding:4px 10px">Disp VAT</th><th style="padding:4px 10px">ATI</th><th style="padding:4px 10px">Status</th></tr><tr style="color:#e74c3c;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 14.0%</td><td style="padding:4px 10px">&euro;284.70</td><td style="padding:4px 10px">&euro;284.70<br><span style="color:#e74c3c;font-size:11px">diff -39.58</span></td><td style="padding:4px 10px">&euro;39.86</td><td style="padding:4px 10px">&euro;0.28<br><span style="color:#e74c3c;font-size:11px">diff +39.58</span></td><td style="padding:4px 10px">&euro;284.98</td><td style="padding:4px 10px"><span style="color:#e74c3c;font-size:16px;font-weight:bold">&#10007;</span></td></tr><tr style="color:#333;border-bottom:1px solid #f0f0f0"><td style="text-align:left;padding:4px 10px;font-weight:600">VAT 3.0%</td><td style="padding:4px 10px">&euro;15.00</td><td style="padding:4px 10px">&euro;15.00</td><td style="padding:4px 10px">&euro;0.45</td><td style="padding:4px 10px">&euro;0.45</td><td style="padding:4px 10px">&euro;15.45</td><td style="padding:4px 10px"><span style="color:#27ae60;font-size:16px;font-weight:bold">&#10003;</span></td></tr></table></td><td style="padding:14px 20px;border-bottom:1px solid #edf2f7;color:#c0392b;font-size:15px;font-weight:500;vertical-align:top"><div style="text-align:left;line-height:1.8;font-size:13px;color:#c0392b"><div style="font-weight:700;color:#1a202c;margin-top:6px">Pre-Payment Bill Check</div><br><span style="color:#e74c3c">&#10007;</span> Total breakdown mismatch: calculated &euro;0.28 &nbsp;|&nbsp; displayed &euro;300.43 &nbsp;|&nbsp; diff &euro;300.15<br><div style="font-weight:700;color:#1a202c;margin-top:6px">Post-Payment Bill Check</div><br><span style="color:#e74c3c">&#10007;</span> VAT 14.0% mismatch: expected &euro;39.86 &nbsp;|&nbsp; displayed &euro;0.28 &nbsp;|&nbsp; diff &euro;39.58</div></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>
+</html>

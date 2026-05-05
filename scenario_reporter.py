@@ -199,6 +199,72 @@ def save_run_to_history():
         print(f"[Report] Saved {len(_session_history)} results to history ({len(full_history)} total)")
 
 
+def _format_failure_clean(error_text):
+    """Convert raw bot error dump into client-friendly structured lines.
+    Extracts Pre/Post totals + VAT mismatches and returns indented lines."""
+    if not error_text:
+        return []
+    lines = []
+    seen = set()
+
+    m = re.search(r'Cart total OK[^€]*€?([\d.]+)', error_text)
+    if m and ("pre" not in seen):
+        lines.append(f"          Pre-Payment Total: €{m.group(1)}")
+        seen.add("pre")
+
+    m = re.search(
+        r'Sum Excl\.?Tax\s*\(\s*€?[\d.]+\s*\)\s*\+\s*Sum VAT\s*\(\s*€?[\d.]+\s*\)\s*=\s*€?[\d.]+\s*=\s*Total\s*€?([\d.]+)',
+        error_text,
+    )
+    if m and ("post" not in seen):
+        lines.append(f"          Post-Payment Total: €{m.group(1)}")
+        seen.add("post")
+
+    for vm in re.finditer(
+        r'VAT\s+([\d.]+)%\s*mismatch:\s*expected\s+[\d.]+/100\s*[×x*]\s*€?([\d.]+)\s*=\s*€?([\d.]+),\s*displayed\s*=\s*€?([\d.]+),\s*diff\s*=\s*€?([\d.]+)',
+        error_text,
+    ):
+        rate, _calc_excl, expected, displayed, diff = vm.groups()
+        lines.append(
+            f"          VAT {rate}% mismatch: expected €{expected}, "
+            f"displayed €{displayed}, diff €{diff}"
+        )
+
+    has_fails = any("mismatch" in l for l in lines)
+    if has_fails:
+        for vm in re.finditer(
+            r'VAT\s+([\d.]+)%\s*\(\s*[\d.]+/100\s*[×x*]\s*€?[\d.]+\s*=\s*€?([\d.]+)\s*\)\s*=\s*displayed\s*€?([\d.]+)\s*✓',
+            error_text,
+        ):
+            rate, expected, _displayed = vm.groups()
+            lines.append(f"          VAT {rate}% OK: €{expected} (matches)")
+
+    m = re.search(
+        r'Bill\s*total\s*mismatch:\s*displayed\s*=\s*€?([\d.]+),\s*calculated\s*=\s*€?([\d.]+),\s*diff\s*=\s*€?([\d.]+)',
+        error_text, re.IGNORECASE,
+    )
+    if m:
+        lines.append(
+            f"          Bill total mismatch: displayed €{m.group(1)}, "
+            f"calculated €{m.group(2)}, diff €{m.group(3)}"
+        )
+
+    m = re.search(
+        r'Items\s*sum\s*mismatch:\s*displayed\s*=\s*€?([\d.]+),\s*calculated\s*=\s*€?([\d.]+),\s*diff\s*=\s*€?([\d.]+)',
+        error_text, re.IGNORECASE,
+    )
+    if m:
+        lines.append(
+            f"          Items sum mismatch: displayed €{m.group(1)}, "
+            f"calculated €{m.group(2)}, diff €{m.group(3)}"
+        )
+
+    if "Interrupted by user" in error_text and not lines:
+        lines.append("          Interrupted by user")
+
+    return lines
+
+
 def print_summary():
     all_results = []
     if _current_result:
@@ -216,7 +282,14 @@ def print_summary():
         launch = f"({r['launch_time']:.1f}s)" if r.get("launch_time") else ""
         print(f"  [{icon}] [{r['num']}] {r['name']} {launch}")
         if r["status"] == "FAIL" and r.get("error"):
-            print(f"          -> {r['error']}")
+            clean_lines = _format_failure_clean(r["error"])
+            if clean_lines:
+                for line in clean_lines:
+                    print(line)
+            else:
+                # Fallback if structured parsing didn't find anything: short raw
+                short = r["error"][:200] + ("..." if len(r["error"]) > 200 else "")
+                print(f"          -> {short}")
     print(f"\n  Report: {REPORT_PATH}")
     print("=" * 60)
 
